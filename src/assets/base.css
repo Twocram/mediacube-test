@@ -1,0 +1,19 @@
+:root {
+  --main-color: rgba(32, 36, 39, 1);
+  --gray-color: rgba(143, 153, 163, 1);
+}
+
+html,
+body {
+  font-family: 'Inter', sans-serif;
+  background: linear-gradient(
+    303.79deg,
+    #f0c3fc -53.74%,
+    #d7befc -4.64%,
+    #bcb1fc 40.96%,
+    #a1aefc 83.05%,
+    #94bdfc 127.47%,
+    #8ec5fc 170.73%
+  );
+  color: var(--main-color);
+}
