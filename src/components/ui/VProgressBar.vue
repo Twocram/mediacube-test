@@ -27,6 +27,7 @@ const progress = computed(() => {
   height: 4px;
   background-color: rgba(32, 36, 39, 0.07);
   border-radius: 8px;
+  overflow: hidden;
 }
 
 .progress-bar__inner {
