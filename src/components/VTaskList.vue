@@ -33,7 +33,7 @@ watch(() => props.tasks, (newTasks) => {
 <style scoped>
 .task-list {
   width: 100%;
-  margin-bottom: 32px;
+  margin-bottom: 25px;
   max-height: 92px;
   height: 100%;
   overflow: auto;
