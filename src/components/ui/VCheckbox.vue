@@ -9,7 +9,7 @@
 </template>
 
 <script setup lang="ts">
-import markSvgIcon from "@/assets/mark.svg"
+import markSvgIcon from "@/assets/icons/mark.svg"
 type Props = {
   value: boolean
 }
