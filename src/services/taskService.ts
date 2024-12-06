@@ -80,7 +80,7 @@ class TaskService {
     }
   }
 
-  async updateTasks(tasks: Task[]) {
+  async updateTasks(tasks: Task[]): Promise<void> {
     try {
       await fetch('/api/tasks', {
         method: 'DELETE',

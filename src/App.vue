@@ -10,9 +10,12 @@
           <VTaskList :tasks="tasks" @edit="editTaskHandler($event)" />
 
           <div class="wrapper-content__cards" v-if="tasks.length > 0">
-            <VProgressCard class="wrapper-content__cards-progress" :count="notCompletedTasks.length"
-              :total="tasks.length" color="#2578F4" status="In progress" />
-            <VProgressCard class="wrapper-content__cards-progress" :count="completedTasks.length" :total="tasks.length"
+            <VProgressCard :count-label="pluralizeText(notCompletedTasks.length, 'task')"
+              class="wrapper-content__cards-progress" :count="notCompletedTasks.length" :total="tasks.length"
+              color="#2578F4" status="In progress" />
+
+            <VProgressCard :count-label="pluralizeText(completedTasks.length, 'task')"
+              class="wrapper-content__cards-progress" :count="completedTasks.length" :total="tasks.length"
               color="rgba(239, 93, 168, 1)" status="Completed" />
           </div>
 
@@ -37,6 +40,7 @@ import VCreateTaskForm from './components/VCreateTaskForm.vue';
 import type { Task, TaskType } from './types/task';
 import VTaskListActions from './components/VTaskListActions.vue';
 import VTaskList from './components/VTaskList.vue';
+import { pluralizeText } from './utils/textUtils';
 
 const taskStore = useTaskStore()
 
@@ -115,7 +119,7 @@ onBeforeUnmount(() => {
   width: 100%;
   max-height: 719px;
   height: 100%;
-  background: rgba(255, 255, 255, 1);
+  background: var(--white-color);
   border-radius: 24px;
   padding: 32px;
 }

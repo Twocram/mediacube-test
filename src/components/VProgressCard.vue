@@ -1,6 +1,6 @@
 <template>
   <div class="progress-card">
-    <div class="progress-card__count">{{ count }} tasks</div>
+    <div class="progress-card__count">{{ count }} {{ countLabel }}</div>
     <div class="progress-card__status">{{ status }} </div>
     <VProgressBar :count="count" :total="total" :color="color" />
   </div>
@@ -9,10 +9,10 @@
 <script setup lang="ts">
 import VProgressBar from './ui/VProgressBar.vue';
 
-
 type Props = {
   status: string
   count: number
+  countLabel: string
   total: number
   color: string
 }
@@ -24,7 +24,7 @@ defineProps<Props>()
 <style scoped>
 .progress-card {
   padding: 16px;
-  background-color: rgba(32, 36, 39, 0.05);
+  background-color: var(--main-low-color);
   width: 100%;
   border-radius: 8px;
   height: 85px;

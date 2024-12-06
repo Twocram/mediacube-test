@@ -47,12 +47,12 @@ watch(() => props.tasks, (newTasks) => {
 }
 
 .task-list::-webkit-scrollbar-thumb {
-  background-color: rgba(32, 36, 39, 0.1);
+  background-color: var(--main-prelow-color);
   border-radius: 4px;
 }
 
 .task-list::-webkit-scrollbar-thumb:hover {
-  background-color: rgba(32, 36, 39, 0.2);
+  background-color: var(--main-prelow-color-hover);
 }
 
 .task-list::-webkit-scrollbar-track {

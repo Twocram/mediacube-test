@@ -1,16 +1,5 @@
 :root {
-  --main-color: rgba(32, 36, 39, 1);
-  --gray-color: rgba(143, 153, 163, 1);
-  --primary-color: #2578f4;
-  --primary-color-hover: #1e66f5;
-  --white-color: #ffffff;
-}
-
-html,
-body {
-  font-family: 'Inter', sans-serif;
-  scroll-behavior: smooth;
-  background: linear-gradient(
+  --background-gradient: linear-gradient(
     303.79deg,
     #f0c3fc -53.74%,
     #d7befc -4.64%,
@@ -19,5 +8,42 @@ body {
     #94bdfc 127.47%,
     #8ec5fc 170.73%
   );
+  --pencil-icon-color: #202427;
+  --main-color: rgba(32, 36, 39, 1);
+  --main-prelow-color: rgba(32, 36, 39, 0.1);
+  --main-prelow-color-hover: rgba(32, 36, 39, 0.2);
+  --main-low-color: rgba(32, 36, 39, 0.05);
+  --gray-color: rgba(143, 153, 163, 1);
+  --primary-color: #2578f4;
+  --primary-color-hover: #1e66f5;
+  --white-color: #ffffff;
+}
+
+.dark {
+  --background-gradient: linear-gradient(
+    303.79deg,
+    #2f343f -53.74%,
+    #3b414f -4.64%,
+    #454f5f 40.96%,
+    #565a6f 83.05%,
+    #666a7f 127.47%,
+    #76797f 170.73%
+  );
+  --pencil-icon-color: #ffffff;
+  --main-color: rgba(255, 255, 255, 1);
+  --main-prelow-color: rgba(255, 255, 255, 0.1);
+  --main-prelow-color-hover: rgba(255, 255, 255, 0.2);
+  --main-low-color: rgba(255, 255, 255, 0.05);
+  --gray-color: rgb(182, 182, 182);
+  --primary-color: #3498db;
+  --primary-color-hover: #2e6da4;
+  --white-color: #333333;
+}
+
+html,
+body {
+  font-family: 'Inter', sans-serif;
+  scroll-behavior: smooth;
+  background: var(--background-gradient);
   color: var(--main-color);
 }

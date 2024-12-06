@@ -44,7 +44,7 @@ withDefaults(defineProps<Props>(), {
 
 .button-colorless {
   color: var(--main-color);
-  background-color: var(--white-color);
+  background-color: transparent;
 }
 
 .button:hover {
