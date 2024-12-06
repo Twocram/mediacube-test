@@ -62,10 +62,10 @@ const completeAllTasks = async () => {
   await taskStore.completeAllTasks()
 }
 
-const getAllTasksHandler = () => {
+const getAllTasksHandler = async () => {
   if (activeType.value === 'all') return
   activeType.value = 'all';
-  taskStore.fetchTasks()
+  await taskStore.fetchTasks()
 }
 
 const getCompletedTasksHandler = () => {
@@ -91,6 +91,8 @@ const getNotCompletedTasksHandler = () => {
 }
 
 .button-hidden {
+  pointer-events: none;
+  cursor: default;
   opacity: 0;
 }
 </style>

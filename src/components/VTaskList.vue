@@ -34,14 +34,15 @@ watch(() => props.tasks, (newTasks) => {
 .task-list {
   width: 100%;
   margin-bottom: 25px;
+  padding-right: 16px;
   max-height: 92px;
   height: 100%;
   overflow: auto;
 }
 
 .task-list::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 4px;
+  height: 80px;
   background-color: transparent;
 }
 

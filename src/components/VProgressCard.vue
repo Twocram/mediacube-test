@@ -25,7 +25,6 @@ defineProps<Props>()
 .progress-card {
   padding: 16px;
   background-color: rgba(32, 36, 39, 0.05);
-  max-width: 190px;
   width: 100%;
   border-radius: 8px;
   height: 85px;

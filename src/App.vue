@@ -10,10 +10,10 @@
           <VTaskList :tasks="tasks" @edit="editTaskHandler($event)" />
 
           <div class="wrapper-content__cards" v-if="tasks.length > 0">
-            <VProgressCard :count="notCompletedTasks.length" :total="tasks.length" color="#2578F4"
-              status="In progress" />
-            <VProgressCard :count="completedTasks.length" :total="tasks.length" color="rgba(239, 93, 168, 1)"
-              status="Completed" />
+            <VProgressCard class="wrapper-content__cards-progress" :count="notCompletedTasks.length"
+              :total="tasks.length" color="#2578F4" status="In progress" />
+            <VProgressCard class="wrapper-content__cards-progress" :count="completedTasks.length" :total="tasks.length"
+              color="rgba(239, 93, 168, 1)" status="Completed" />
           </div>
 
           <div class="wrapper-content__footer" v-if="tasks.length < 1">
@@ -57,7 +57,7 @@ function escapeHandler(event: KeyboardEvent) {
 
 const createTaskHandler = async (value: string) => {
   if (isEditMode.value && editTask.value) {
-    await taskStore.updateTask(editTask.value?.id, { title: value, isCompleted: editTask.value.isCompleted })
+    await taskStore.updateTask(editTask.value.id, { title: value, isCompleted: editTask.value.isCompleted })
     isEditMode.value = false
     inputValue.value = ''
     return
@@ -120,6 +120,7 @@ onBeforeUnmount(() => {
   padding: 32px;
 }
 
+
 .wrapper-content {
   height: 100%;
   margin: 0 auto;
@@ -148,6 +149,10 @@ onBeforeUnmount(() => {
   margin-bottom: 32px;
 }
 
+.wrapper-content__cards-progress {
+  max-width: 190px;
+}
+
 .wrapper-content__footer {
   margin-top: auto;
   display: flex;
@@ -159,5 +164,21 @@ onBeforeUnmount(() => {
   font-size: 14px;
   line-height: 16px;
   color: var(--gray-color);
+}
+
+@media screen and (max-width: 768px) {
+  .wrapper {
+    padding: 16px;
+    max-width: 415px;
+  }
+
+  .wrapper-content__cards {
+    flex-direction: column;
+    gap: 12px
+  }
+
+  .wrapper-content__cards-progress {
+    max-width: 100%;
+  }
 }
 </style>

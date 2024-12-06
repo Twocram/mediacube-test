@@ -5,9 +5,9 @@
 </template>
 
 <script setup lang="ts">
-type ButtonWeight = "default" | "medium"
-type ButtonType = "button" | "submit"
-type ButtonColor = "primary" | "colorless"
+import type { ButtonColor, ButtonType, ButtonWeight } from '@/types/components/button';
+
+
 
 type Props = {
   weight?: ButtonWeight
@@ -32,6 +32,7 @@ withDefaults(defineProps<Props>(), {
   border-radius: 8px;
   font-weight: 600;
   border: none;
+  white-space: nowrap;
   font-size: 13px;
   line-height: 16px;
 }
