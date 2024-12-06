@@ -20,7 +20,6 @@ type Props = {
 
 const props = defineProps<Props>()
 
-
 const emits = defineEmits(['edit'])
 
 const localTasks = ref<Task[]>([])
@@ -35,5 +34,28 @@ watch(() => props.tasks, (newTasks) => {
 .task-list {
   width: 100%;
   margin-bottom: 32px;
+  max-height: 92px;
+  height: 100%;
+  overflow: auto;
+}
+
+.task-list::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+  background-color: transparent;
+}
+
+.task-list::-webkit-scrollbar-thumb {
+  background-color: rgba(32, 36, 39, 0.1);
+  border-radius: 4px;
+}
+
+.task-list::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(32, 36, 39, 0.2);
+}
+
+.task-list::-webkit-scrollbar-track {
+  background-color: transparent;
+  border-radius: 4px;
 }
 </style>

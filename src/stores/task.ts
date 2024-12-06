@@ -36,5 +36,19 @@ export const useTaskStore = defineStore('task', {
       await updateTasks(tasks)
       await this.fetchTasks()
     },
+
+    async deleteCompletedTasks() {
+      const tasks = this.tasks.filter((task) => task.isCompleted)
+      await Promise.all(tasks.map((task) => deleteTask(task.id)))
+      await this.fetchTasks()
+    },
+
+    async completeAllTasks() {
+      const tasks = this.tasks
+      await Promise.all(
+        tasks.map((task) => updateTask(task.id, { title: task.title, isCompleted: true })),
+      )
+      await this.fetchTasks()
+    },
   },
 })

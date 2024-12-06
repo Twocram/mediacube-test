@@ -9,6 +9,7 @@
 html,
 body {
   font-family: 'Inter', sans-serif;
+  scroll-behavior: smooth;
   background: linear-gradient(
     303.79deg,
     #f0c3fc -53.74%,

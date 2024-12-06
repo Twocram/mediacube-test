@@ -1,6 +1,6 @@
 <template>
   <div class="todo-list__item">
-    <VCheckbox class="todo-list__item-checkbox" v-model="completed" />
+    <VCheckbox :value="isCompleted" class="todo-list__item-checkbox" @change="changeHandler($event)" />
     <span class="todo-list__item-label" :class="{ 'todo-list__item-label--completed': isCompleted }">{{ title }}</span>
     <div class="todo-list__item-actions">
       <VPencilIcon class="todo-list__item-pencil" @click="emits('edit', { id, title, isCompleted })" />
@@ -14,7 +14,6 @@ import { useTaskStore } from '@/stores/task';
 import VBinIcon from './icons/VBinIcon.vue';
 import VPencilIcon from './icons/VPencilIcon.vue';
 import VCheckbox from './ui/VCheckbox.vue';
-import { ref, watch } from 'vue';
 
 type Props = {
   id: string
@@ -32,12 +31,9 @@ const deleteTaskHandler = async (taskId: string) => {
 
 const props = defineProps<Props>()
 
-const completed = ref(props.isCompleted)
-
-watch(completed, (v) => {
-  taskStore.editTask(props.id, { isCompleted: v, title: props.title })
-})
-
+const changeHandler = async (value: boolean) => {
+  await taskStore.editTask(props.id, { title: props.title, isCompleted: value })
+}
 
 </script>
 

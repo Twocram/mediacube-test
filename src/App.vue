@@ -19,7 +19,8 @@
           <div class="wrapper-content__footer" v-if="tasks.length < 1">
             <VCheckmarkIcon /> <span>Congrat, you have no more tasks to do</span>
           </div>
-          <VTaskListActions v-else />
+          <VTaskListActions :all-tasks="tasks.length" :completed-tasks="completedTasks.length"
+            :not-completed-tasks="notCompletedTasks.length" v-else />
         </div>
       </div>
     </div>
@@ -53,16 +54,6 @@ function escapeHandler(event: KeyboardEvent) {
     inputValue.value = ''
   }
 }
-
-onMounted(async () => {
-  taskStore.fetchTasks()
-
-  document.addEventListener('keydown', escapeHandler)
-})
-
-onBeforeUnmount(() => {
-  document.removeEventListener('keydown', escapeHandler)
-})
 
 const createTaskHandler = async (value: string) => {
   if (isEditMode.value && editTask.value) {
@@ -98,6 +89,16 @@ const editTaskHandler = async (task: Task) => {
   inputValue.value = task.title
   editTask.value = task
 }
+
+onMounted(async () => {
+  taskStore.fetchTasks()
+
+  document.addEventListener('keydown', escapeHandler)
+})
+
+onBeforeUnmount(() => {
+  document.removeEventListener('keydown', escapeHandler)
+})
 
 </script>
 
