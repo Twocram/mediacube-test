@@ -1,0 +1,89 @@
+<template>
+  <div class="todo-list__item">
+    <VCheckbox class="todo-list__item-checkbox" v-model="completed" />
+    <span class="todo-list__item-label" :class="{ 'todo-list__item-label--completed': isCompleted }">{{ title }}</span>
+    <div class="todo-list__item-actions">
+      <VPencilIcon class="todo-list__item-pencil" @click="emits('edit', { id, title, isCompleted })" />
+      <VBinIcon class="todo-list__item-bin" @click="deleteTaskHandler(id)" />
+    </div>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { useTaskStore } from '@/stores/task';
+import VBinIcon from './icons/VBinIcon.vue';
+import VPencilIcon from './icons/VPencilIcon.vue';
+import VCheckbox from './ui/VCheckbox.vue';
+import { ref, watch } from 'vue';
+
+type Props = {
+  id: string
+  title: string
+  isCompleted: boolean
+}
+
+const taskStore = useTaskStore();
+
+const emits = defineEmits(['edit'])
+
+const deleteTaskHandler = async (taskId: string) => {
+  await taskStore.removeTask(taskId)
+}
+
+const props = defineProps<Props>()
+
+const completed = ref(props.isCompleted)
+
+watch(completed, (v) => {
+  taskStore.editTask(props.id, { isCompleted: v, title: props.title })
+})
+
+
+</script>
+
+<style scoped>
+.todo-list__item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.todo-list__item:hover {
+  cursor: grab;
+}
+
+.todo-list__item:active {
+  cursor: grabbing;
+}
+
+.todo-list__item:last-child {
+  margin-bottom: 0;
+}
+
+.todo-list__item-checkbox {
+  margin-right: 8px;
+}
+
+.todo-list__item-label {
+  font-size: 14px;
+  line-height: 16px;
+}
+
+.todo-list__item-label--completed {
+  color: var(--gray-color);
+}
+
+.todo-list__item-actions {
+  display: flex;
+  margin-left: auto;
+  gap: 16px;
+}
+
+.todo-list__item-pencil {
+  cursor: pointer;
+}
+
+.todo-list__item-bin {
+  cursor: pointer;
+}
+</style>
