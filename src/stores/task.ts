@@ -1,4 +1,4 @@
-import { createTask, deleteTask, getTasks, updateTask, updateTasks } from '@/services/taskService'
+import { taskService } from '@/services/taskService'
 import type { Task } from '@/types/task'
 import { defineStore } from 'pinia'
 
@@ -13,40 +13,42 @@ export const useTaskStore = defineStore('task', {
     },
 
     async fetchTasks() {
-      const _tasks = await getTasks()
+      const _tasks = await taskService.getTasks()
       this.setTasks(_tasks)
     },
 
-    async addTask(taskName: string) {
-      await createTask(taskName)
+    async createTask(taskName: string) {
+      await taskService.createTask(taskName)
       await this.fetchTasks()
     },
 
-    async removeTask(taskId: string) {
-      await deleteTask(taskId)
+    async deleteTask(taskId: string) {
+      await taskService.deleteTask(taskId)
       await this.fetchTasks()
     },
 
-    async editTask(taskId: string, options: Omit<Task, 'id'>) {
-      await updateTask(taskId, options)
+    async updateTask(taskId: string, options: Omit<Task, 'id'>) {
+      await taskService.updateTask(taskId, options)
       await this.fetchTasks()
     },
 
-    async editAllTasks(tasks: Task[]) {
-      await updateTasks(tasks)
+    async updateTasks(tasks: Task[]) {
+      await taskService.updateTasks(tasks)
       await this.fetchTasks()
     },
 
     async deleteCompletedTasks() {
       const tasks = this.tasks.filter((task) => task.isCompleted)
-      await Promise.all(tasks.map((task) => deleteTask(task.id)))
+      await Promise.all(tasks.map((task) => taskService.deleteTask(task.id)))
       await this.fetchTasks()
     },
 
     async completeAllTasks() {
       const tasks = this.tasks
       await Promise.all(
-        tasks.map((task) => updateTask(task.id, { title: task.title, isCompleted: true })),
+        tasks.map((task) =>
+          taskService.updateTask(task.id, { title: task.title, isCompleted: true }),
+        ),
       )
       await this.fetchTasks()
     },

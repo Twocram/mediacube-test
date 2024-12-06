@@ -26,13 +26,13 @@ const taskStore = useTaskStore();
 const emits = defineEmits(['edit'])
 
 const deleteTaskHandler = async (taskId: string) => {
-  await taskStore.removeTask(taskId)
+  await taskStore.deleteTask(taskId)
 }
 
 const props = defineProps<Props>()
 
 const changeHandler = async (value: boolean) => {
-  await taskStore.editTask(props.id, { title: props.title, isCompleted: value })
+  await taskStore.updateTask(props.id, { title: props.title, isCompleted: value })
 }
 
 </script>

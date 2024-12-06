@@ -57,12 +57,12 @@ function escapeHandler(event: KeyboardEvent) {
 
 const createTaskHandler = async (value: string) => {
   if (isEditMode.value && editTask.value) {
-    await taskStore.editTask(editTask.value?.id, { title: value, isCompleted: editTask.value.isCompleted })
+    await taskStore.updateTask(editTask.value?.id, { title: value, isCompleted: editTask.value.isCompleted })
     isEditMode.value = false
     inputValue.value = ''
     return
   }
-  await taskStore.addTask(value)
+  await taskStore.createTask(value)
 }
 
 const tasks = computed<Task[]>(() => {
