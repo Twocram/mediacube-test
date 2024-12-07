@@ -1,22 +1,20 @@
 <template>
   <div class="wrapper-content__footer-actions">
-    <VButton class="button-check" @click="completeAllTasks" :class="{ 'button-hidden': completedTasks === allTasks }"
-      color="colorless">
+    <VButton @click="completeAllTasks" :class="{ 'button-hidden': completedTasks === allTasks }" color="colorless">
       Check all
     </VButton>
-    <VButton class="button-all" :color="allButtonColor" @click="getAllTasksHandler">
+    <VButton :color="allButtonColor" @click="getAllTasksHandler">
       All
     </VButton>
-    <VButton class="button-active" :color="activeButtonColor" @click="getNotCompletedTasksHandler"
+    <VButton :color="activeButtonColor" @click="getNotCompletedTasksHandler"
       :class="{ 'button-hidden': notCompletedTasks === 0 }">
       Active
     </VButton>
-    <VButton class="button-completed" :color="completedButtonColor" @click="getCompletedTasksHandler"
+    <VButton :color="completedButtonColor" @click="getCompletedTasksHandler"
       :class="{ 'button-hidden': completedTasks === 0 }">
       Completed
     </VButton>
-    <VButton class="button-clear" @click="deleteCompletedTasks" color="colorless"
-      :class="{ 'button-hidden': completedTasks < 1 }">
+    <VButton @click="deleteCompletedTasks" color="colorless" :class="{ 'button-hidden': completedTasks < 1 }">
       Clear completed
     </VButton>
   </div>
