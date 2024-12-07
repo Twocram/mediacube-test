@@ -10,9 +10,9 @@ export const useTheme = () => {
       localStorage.setItem('theme', 'light')
     }
     if (theme.value === 'dark') {
-      document.documentElement.classList.add('dark')
+      document.body.classList.add('dark')
     } else {
-      document.documentElement.classList.remove('dark')
+      document.body.removeAttribute('class')
     }
   }
 
@@ -21,9 +21,9 @@ export const useTheme = () => {
     localStorage.setItem('theme', newTheme)
 
     if (newTheme === 'dark') {
-      document.documentElement.classList.add('dark')
+      document.body.classList.add('dark')
     } else {
-      document.documentElement.classList.remove('dark')
+      document.body.removeAttribute('class')
     }
   }
 

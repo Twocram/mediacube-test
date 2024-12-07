@@ -25,7 +25,7 @@ const progress = computed(() => {
   position: relative;
   width: 100%;
   height: 4px;
-  background-color: rgba(32, 36, 39, 0.07);
+  background-color: var(--progress-background-color);
   border-radius: 8px;
   overflow: hidden;
 }

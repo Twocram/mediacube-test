@@ -1,5 +1,8 @@
 <template>
   <div class="todo-list__item">
+    <div class="todo-list__item-handle">
+      <VDragIcon />
+    </div>
     <VCheckbox :value="isCompleted" class="todo-list__item-checkbox" @change="changeHandler($event)" />
     <span class="todo-list__item-label" :class="{ 'todo-list__item-label--completed': isCompleted }">{{ title }}</span>
     <div class="todo-list__item-actions">
@@ -14,6 +17,7 @@ import { useTaskStore } from '@/stores/task';
 import VBinIcon from './icons/VBinIcon.vue';
 import VPencilIcon from './icons/VPencilIcon.vue';
 import VCheckbox from './ui/VCheckbox.vue';
+import VDragIcon from './icons/VDragIcon.vue';
 
 type Props = {
   id: string
@@ -44,16 +48,28 @@ const changeHandler = async (value: boolean) => {
   margin-bottom: 16px;
 }
 
-.todo-list__item:hover {
-  cursor: grab;
-}
-
-.todo-list__item:active {
-  cursor: grabbing;
+.todo-list__item:hover .todo-list__item-handle {
+  opacity: 1;
+  pointer-events: all;
 }
 
 .todo-list__item:last-child {
   margin-bottom: 0;
+}
+
+.todo-list__item-handle {
+  display: flex;
+  align-items: center;
+  margin-right: 8px;
+  cursor: grab;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+  user-select: none;
+  pointer-events: none;
+}
+
+.todo-list__item-handle:active {
+  cursor: grabbing;
 }
 
 .todo-list__item-checkbox {
@@ -81,5 +97,12 @@ const changeHandler = async (value: boolean) => {
 
 .todo-list__item-bin {
   cursor: pointer;
+}
+
+@media screen and (max-width: 768px) {
+  .todo-list__item-handle {
+    opacity: 1;
+    pointer-events: all;
+  }
 }
 </style>

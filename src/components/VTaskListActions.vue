@@ -1,20 +1,22 @@
 <template>
   <div class="wrapper-content__footer-actions">
-    <VButton @click="completeAllTasks" :class="{ 'button-hidden': completedTasks === allTasks }" color="colorless">
+    <VButton class="button-check" @click="completeAllTasks" :class="{ 'button-hidden': completedTasks === allTasks }"
+      color="colorless">
       Check all
     </VButton>
-    <VButton :color="allButtonColor" @click="getAllTasksHandler">
+    <VButton class="button-all" :color="allButtonColor" @click="getAllTasksHandler">
       All
     </VButton>
-    <VButton :color="activeButtonColor" @click="getNotCompletedTasksHandler"
+    <VButton class="button-active" :color="activeButtonColor" @click="getNotCompletedTasksHandler"
       :class="{ 'button-hidden': notCompletedTasks === 0 }">
       Active
     </VButton>
-    <VButton :color="completedButtonColor" @click="getCompletedTasksHandler"
+    <VButton class="button-completed" :color="completedButtonColor" @click="getCompletedTasksHandler"
       :class="{ 'button-hidden': completedTasks === 0 }">
       Completed
     </VButton>
-    <VButton @click="deleteCompletedTasks" color="colorless" :class="{ 'button-hidden': completedTasks < 1 }">
+    <VButton class="button-clear" @click="deleteCompletedTasks" color="colorless"
+      :class="{ 'button-hidden': completedTasks < 1 }">
       Clear completed
     </VButton>
   </div>
@@ -82,7 +84,6 @@ const getNotCompletedTasksHandler = () => {
   taskStore.setTasks(notCompletedTasks)
 }
 
-
 </script>
 
 <style scoped>
@@ -94,5 +95,12 @@ const getNotCompletedTasksHandler = () => {
   pointer-events: none;
   cursor: default;
   opacity: 0;
+}
+
+@media screen and (max-width: 768px) {
+  .wrapper-content__footer-actions {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
 </style>

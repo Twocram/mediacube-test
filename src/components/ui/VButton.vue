@@ -5,9 +5,7 @@
 </template>
 
 <script setup lang="ts">
-import type { ButtonColor, ButtonType, ButtonSize } from '@/types/components/button';
-
-
+import type { ButtonColor, ButtonType, ButtonSize } from '@/types/button';
 
 type Props = {
   size?: ButtonSize

@@ -25,6 +25,7 @@ const changeHandler = () => {
 <style scoped>
 .checkbox-container {
   display: inline-block;
+  user-select: none;
 }
 
 .checkbox {

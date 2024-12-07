@@ -2,10 +2,7 @@
   <main>
     <div class="container">
       <div class="wrapper">
-        <VButton @click="toggleTheme" class="wrapper-theme__button" size="rounded">
-          <VDarkModeIcon v-if="theme === 'light'" />
-          <VLightModeIcon v-else />
-        </VButton>
+        <VThemeSwitcher class="wrapper-theme__button" />
         <div class="wrapper-content">
           <VTodoIcon class="wrapper-content__icon" />
           <div class="wrapper-content__caption">Today I need to</div>
@@ -35,7 +32,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import VCheckmarkIcon from './components/icons/VCheckmarkIcon.vue'
 import VTodoIcon from './components/icons/VTodoIcon.vue'
 import VProgressCard from './components/VProgressCard.vue';
@@ -46,13 +43,13 @@ import VTaskListActions from './components/VTaskListActions.vue';
 import VTaskList from './components/VTaskList.vue';
 import { pluralizeText } from './utils/textUtils';
 import { useTheme } from './composables/useTheme';
-import VButton from './components/ui/VButton.vue';
-import VDarkModeIcon from './components/icons/VDarkModeIcon.vue';
-import VLightModeIcon from './components/icons/VLightModeIcon.vue';
+
+import VThemeSwitcher from './components/ui/VThemeSwitcher.vue';
+import { useKeyboardEvent } from './composables/useKeyboardEvent';
 
 const taskStore = useTaskStore()
 
-const { theme, checkTheme, toggleTheme } = useTheme()
+const { checkTheme } = useTheme()
 
 const inputValue = ref('')
 
@@ -68,6 +65,8 @@ function escapeHandler(event: KeyboardEvent) {
     inputValue.value = ''
   }
 }
+
+useKeyboardEvent('keydown', escapeHandler)
 
 const createTaskHandler = async (value: string) => {
   if (isEditMode.value && editTask.value) {
@@ -106,14 +105,7 @@ const editTaskHandler = async (task: Task) => {
 
 onMounted(async () => {
   checkTheme()
-
   taskStore.fetchTasks()
-
-  document.addEventListener('keydown', escapeHandler)
-})
-
-onBeforeUnmount(() => {
-  document.removeEventListener('keydown', escapeHandler)
 })
 
 </script>
