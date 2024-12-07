@@ -2,7 +2,7 @@
   <form @submit.prevent="submitHandler" class="wrapper-content__form">
     <VInput class="wrapper-content__form-input" placeholder="Add new todo..." type="text" v-model="inputValue" />
 
-    <VButton v-if="inputValue" weight="medium" type="submit">
+    <VButton v-if="inputValue" size="medium" type="submit">
       Submit
     </VButton>
   </form>

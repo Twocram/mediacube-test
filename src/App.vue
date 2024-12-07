@@ -2,6 +2,10 @@
   <main>
     <div class="container">
       <div class="wrapper">
+        <VButton @click="toggleTheme" class="wrapper-theme__button" size="rounded">
+          <VDarkModeIcon v-if="theme === 'light'" />
+          <VLightModeIcon v-else />
+        </VButton>
         <div class="wrapper-content">
           <VTodoIcon class="wrapper-content__icon" />
           <div class="wrapper-content__caption">Today I need to</div>
@@ -41,8 +45,14 @@ import type { Task, TaskType } from './types/task';
 import VTaskListActions from './components/VTaskListActions.vue';
 import VTaskList from './components/VTaskList.vue';
 import { pluralizeText } from './utils/textUtils';
+import { useTheme } from './composables/useTheme';
+import VButton from './components/ui/VButton.vue';
+import VDarkModeIcon from './components/icons/VDarkModeIcon.vue';
+import VLightModeIcon from './components/icons/VLightModeIcon.vue';
 
 const taskStore = useTaskStore()
+
+const { theme, checkTheme, toggleTheme } = useTheme()
 
 const inputValue = ref('')
 
@@ -95,6 +105,8 @@ const editTaskHandler = async (task: Task) => {
 }
 
 onMounted(async () => {
+  checkTheme()
+
   taskStore.fetchTasks()
 
   document.addEventListener('keydown', escapeHandler)
@@ -120,10 +132,17 @@ onBeforeUnmount(() => {
   max-height: 719px;
   height: 100%;
   background: var(--white-color);
+  position: relative;
   border-radius: 24px;
   padding: 32px;
 }
 
+
+.wrapper-theme__button {
+  position: absolute;
+  top: 32px;
+  left: 32px;
+}
 
 .wrapper-content {
   height: 100%;
@@ -174,6 +193,11 @@ onBeforeUnmount(() => {
   .wrapper {
     padding: 16px;
     max-width: 415px;
+  }
+
+  .wrapper-theme__button {
+    top: 16px;
+    left: 16px;
   }
 
   .wrapper-content__cards {

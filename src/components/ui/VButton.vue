@@ -1,22 +1,22 @@
 <template>
-  <button class="button" :type="type" :class="[`button-${weight}`, `button-${color}`]">
+  <button class="button" :type="type" :class="[`button-${size}`, `button-${color}`]">
     <slot></slot>
   </button>
 </template>
 
 <script setup lang="ts">
-import type { ButtonColor, ButtonType, ButtonWeight } from '@/types/components/button';
+import type { ButtonColor, ButtonType, ButtonSize } from '@/types/components/button';
 
 
 
 type Props = {
-  weight?: ButtonWeight
+  size?: ButtonSize
   type?: ButtonType
   color?: ButtonColor
 }
 
 withDefaults(defineProps<Props>(), {
-  weight: "default",
+  size: "default",
   type: "button",
   color: "primary"
 })
@@ -59,5 +59,10 @@ withDefaults(defineProps<Props>(), {
 
 .button-medium {
   padding: 12px 16px;
+}
+
+.button-rounded {
+  border-radius: 50px;
+  padding: 8px;
 }
 </style>
