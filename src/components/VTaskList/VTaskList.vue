@@ -17,8 +17,8 @@
 </template>
 
 <script setup lang="ts">
-import type { Task } from '@/types/task'
-import VTaskListItem from './VTaskListItem.vue'
+import type { Task } from '@/types/task.ts'
+import VTaskListItem from '../VTastListItem/VTaskListItem.vue'
 import { VueDraggableNext } from 'vue-draggable-next'
 import { ref, watch } from 'vue'
 type Props = {

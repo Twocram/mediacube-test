@@ -34,9 +34,9 @@
 
 <script setup lang="ts">
 import { computed, ref } from 'vue'
-import VButton from './ui/VButton.vue'
-import { useTaskStore } from '@/stores/task'
-import type { Task } from '@/types/task'
+import VButton from '@/components/ui/VButton.vue'
+import { useTaskStore } from '@/stores/task.ts'
+import type { Task } from '@/types/task.ts'
 
 type ButtonActiveType = 'all' | 'active' | 'completed'
 

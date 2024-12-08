@@ -12,8 +12,8 @@
 </template>
 
 <script setup lang="ts">
-import VInput from './ui/VInput.vue'
-import VButton from './ui/VButton.vue'
+import VInput from '../ui/VInput.vue'
+import VButton from '../ui/VButton.vue'
 
 const inputValue = defineModel<string>()
 

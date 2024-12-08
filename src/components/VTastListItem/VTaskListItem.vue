@@ -24,11 +24,11 @@
 </template>
 
 <script setup lang="ts">
-import { useTaskStore } from '@/stores/task'
-import VBinIcon from './icons/VBinIcon.vue'
-import VPencilIcon from './icons/VPencilIcon.vue'
-import VCheckbox from './ui/VCheckbox.vue'
-import VDragIcon from './icons/VDragIcon.vue'
+import { useTaskStore } from '@/stores/task.ts'
+import VBinIcon from '../icons/VBinIcon.vue'
+import VPencilIcon from '../icons/VPencilIcon.vue'
+import VCheckbox from '../ui/VCheckbox.vue'
+import VDragIcon from '../icons/VDragIcon.vue'
 
 type Props = {
   id: string

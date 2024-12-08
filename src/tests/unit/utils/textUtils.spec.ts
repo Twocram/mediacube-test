@@ -1,4 +1,4 @@
-import { pluralizeText } from '../../../utils/textUtils'
+import { pluralizeText } from '@/utils/textUtils.ts'
 import { describe, it, expect } from 'vitest'
 describe('pluralizeText', () => {
   it('returns the correct text for a single item', () => {
