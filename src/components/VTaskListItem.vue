@@ -1,6 +1,6 @@
 <template>
   <div class="todo-list__item">
-    <div class="todo-list__item-handle">
+    <div class="todo-list__item-handle" :class="{ 'hidden': isFiltered }">
       <VDragIcon />
     </div>
     <VCheckbox :value="isCompleted" class="todo-list__item-checkbox" @change="changeHandler($event)" />
@@ -23,6 +23,7 @@ type Props = {
   id: string
   title: string
   isCompleted: boolean
+  isFiltered: boolean
 }
 
 const taskStore = useTaskStore();
@@ -51,6 +52,18 @@ const changeHandler = async (value: boolean) => {
 .todo-list__item:hover .todo-list__item-handle {
   opacity: 1;
   pointer-events: all;
+}
+
+.todo-list__item-handle.hidden {
+  opacity: 0;
+  cursor: default;
+  pointer-events: none;
+}
+
+.todo-list__item:hover .todo-list__item-handle.hidden {
+  opacity: 0;
+  cursor: default;
+  pointer-events: none;
 }
 
 .todo-list__item:last-child {

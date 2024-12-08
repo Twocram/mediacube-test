@@ -7,6 +7,11 @@ export const useTaskStore = defineStore('task', {
     tasks: [] as Task[],
   }),
 
+  getters: {
+    completedTasks: (state) => state.tasks.filter((task) => task.isCompleted),
+    notCompletedTasks: (state) => state.tasks.filter((task) => !task.isCompleted),
+  },
+
   actions: {
     setTasks(tasks: Task[]) {
       this.tasks = tasks

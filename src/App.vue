@@ -8,7 +8,7 @@
           <div class="wrapper-content__caption">Today I need to</div>
           <VCreateTaskForm v-model="inputValue" @submit="createTaskHandler($event)" />
 
-          <VTaskList :tasks="tasks" @edit="editTaskHandler($event)" />
+          <VTaskList :is-filtered="isFiltered" :tasks="tasks" @edit="editTaskHandler($event)" />
 
           <div class="wrapper-content__cards" v-if="tasks.length > 0">
             <VProgressCard :count-label="pluralizeText(notCompletedTasks.length, 'task')"
@@ -23,8 +23,8 @@
           <div class="wrapper-content__footer" v-if="tasks.length < 1">
             <VCheckmarkIcon /> <span>Congrat, you have no more tasks to do</span>
           </div>
-          <VTaskListActions :all-tasks="tasks.length" :completed-tasks="completedTasks.length"
-            :not-completed-tasks="notCompletedTasks.length" v-else />
+
+          <VTaskListActions @set-filtered="isFiltered = $event" v-else />
         </div>
       </div>
     </div>
@@ -52,6 +52,8 @@ const taskStore = useTaskStore()
 const { checkTheme } = useTheme()
 
 const inputValue = ref('')
+
+const isFiltered = ref(false)
 
 const isEditMode = ref(false)
 

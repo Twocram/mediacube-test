@@ -3,7 +3,7 @@
     <VueDraggableNext handle=".todo-list__item-handle" v-model="localTasks">
       <TransitionGroup>
         <VTaskListItem @edit="emits('edit', $event)" v-for="task in localTasks" :key="task.id"
-          :isCompleted="task.isCompleted" :id="task.id" :title="task.title" />
+          :isCompleted="task.isCompleted" :id="task.id" :title="task.title" :isFiltered="isFilteredMode" />
       </TransitionGroup>
     </VueDraggableNext>
   </div>
@@ -16,6 +16,7 @@ import { VueDraggableNext } from 'vue-draggable-next';
 import { ref, watch } from 'vue';
 type Props = {
   tasks: Task[]
+  isFiltered: boolean
 }
 
 const props = defineProps<Props>()
@@ -24,8 +25,14 @@ const emits = defineEmits(['edit'])
 
 const localTasks = ref<Task[]>([])
 
+const isFilteredMode = ref(false)
+
 watch(() => props.tasks, (newTasks) => {
   localTasks.value = newTasks
+})
+
+watch(() => props.isFiltered, (newValue) => {
+  isFilteredMode.value = newValue
 })
 
 </script>
