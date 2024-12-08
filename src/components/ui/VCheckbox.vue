@@ -2,14 +2,14 @@
   <div class="checkbox-container">
     <div class="checkbox" :class="{ 'checkbox--active': value }" @click="changeHandler">
       <div class="checkbox-icon" v-if="value">
-        <img :src="markSvgIcon" alt="checked">
+        <img :src="markSvgIcon" alt="checked" />
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import markSvgIcon from "@/assets/icons/mark.svg"
+import markSvgIcon from '@/assets/icons/mark.svg'
 type Props = {
   value: boolean
 }

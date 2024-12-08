@@ -5,7 +5,7 @@
 </template>
 
 <script setup lang="ts">
-import type { ButtonColor, ButtonType, ButtonSize } from '@/types/button';
+import type { ButtonColor, ButtonType, ButtonSize } from '@/types/button'
 
 type Props = {
   size?: ButtonSize
@@ -14,11 +14,10 @@ type Props = {
 }
 
 withDefaults(defineProps<Props>(), {
-  size: "default",
-  type: "button",
-  color: "primary"
+  size: 'default',
+  type: 'button',
+  color: 'primary',
 })
-
 </script>
 
 <style scoped>
@@ -37,7 +36,7 @@ withDefaults(defineProps<Props>(), {
 
 .button-primary {
   color: var(--white-color);
-  background-color: var(--primary-color)
+  background-color: var(--primary-color);
 }
 
 .button-colorless {

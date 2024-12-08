@@ -9,11 +9,8 @@
       <circle cx="11.5" cy="8.5" r="1.5" fill="#202427" />
     </g>
   </svg>
-
 </template>
 
-<script setup lang="ts">
-
-</script>
+<script setup lang="ts"></script>
 
 <style scoped></style>

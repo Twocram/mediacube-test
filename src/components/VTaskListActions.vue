@@ -1,33 +1,44 @@
 <template>
   <div class="wrapper-content__footer-actions">
-    <VButton @click="completeAllTasks" :class="{ 'button-hidden': completedTasksLength === tasksLength }"
-      color="colorless">
+    <VButton
+      @click="completeAllTasks"
+      :class="{ 'button-hidden': completedTasksLength === tasksLength }"
+      color="colorless"
+    >
       Check all
     </VButton>
-    <VButton :color="allButtonColor" @click="getAllTasksHandler">
-      All
-    </VButton>
-    <VButton :color="activeButtonColor" @click="getNotCompletedTasksHandler"
-      :class="{ 'button-hidden': notCompletedTasksLength === 0 }">
+    <VButton :color="allButtonColor" @click="getAllTasksHandler"> All </VButton>
+    <VButton
+      :color="activeButtonColor"
+      @click="getNotCompletedTasksHandler"
+      :class="{ 'button-hidden': notCompletedTasksLength === 0 }"
+    >
       Active
     </VButton>
-    <VButton :color="completedButtonColor" @click="getCompletedTasksHandler"
-      :class="{ 'button-hidden': completedTasksLength === 0 }">
+    <VButton
+      :color="completedButtonColor"
+      @click="getCompletedTasksHandler"
+      :class="{ 'button-hidden': completedTasksLength === 0 }"
+    >
       Completed
     </VButton>
-    <VButton @click="deleteCompletedTasks" color="colorless" :class="{ 'button-hidden': completedTasksLength < 1 }">
+    <VButton
+      @click="deleteCompletedTasks"
+      color="colorless"
+      :class="{ 'button-hidden': completedTasksLength < 1 }"
+    >
       Clear completed
     </VButton>
   </div>
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue';
-import VButton from './ui/VButton.vue';
-import { useTaskStore } from '@/stores/task';
-import type { Task } from '@/types/task';
+import { computed, ref } from 'vue'
+import VButton from './ui/VButton.vue'
+import { useTaskStore } from '@/stores/task'
+import type { Task } from '@/types/task'
 
-type ButtonActiveType = "all" | "active" | "completed"
+type ButtonActiveType = 'all' | 'active' | 'completed'
 
 const activeType = ref<ButtonActiveType>('all')
 
@@ -71,14 +82,14 @@ const completeAllTasks = async () => {
 
 const getAllTasksHandler = async () => {
   if (activeType.value === 'all') return
-  activeType.value = 'all';
+  activeType.value = 'all'
   emits('setFiltered', false)
   await taskStore.fetchTasks()
 }
 
 const getCompletedTasksHandler = () => {
   if (activeType.value === 'completed') return
-  activeType.value = 'completed';
+  activeType.value = 'completed'
   emits('setFiltered', true)
   const completedTasks = tasks.value.filter((task) => task.isCompleted)
   taskStore.setTasks(completedTasks)
@@ -86,12 +97,11 @@ const getCompletedTasksHandler = () => {
 
 const getNotCompletedTasksHandler = () => {
   if (activeType.value === 'active') return
-  activeType.value = 'active';
+  activeType.value = 'active'
   emits('setFiltered', true)
   const notCompletedTasks = tasks.value.filter((task) => !task.isCompleted)
   taskStore.setTasks(notCompletedTasks)
 }
-
 </script>
 
 <style scoped>

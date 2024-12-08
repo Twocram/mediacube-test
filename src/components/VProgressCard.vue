@@ -1,13 +1,13 @@
 <template>
   <div class="progress-card">
     <div class="progress-card__count">{{ count }} {{ countLabel }}</div>
-    <div class="progress-card__status">{{ status }} </div>
+    <div class="progress-card__status">{{ status }}</div>
     <VProgressBar :count="count" :total="total" :color="color" />
   </div>
 </template>
 
 <script setup lang="ts">
-import VProgressBar from './ui/VProgressBar.vue';
+import VProgressBar from './ui/VProgressBar.vue'
 
 type Props = {
   status: string
@@ -18,7 +18,6 @@ type Props = {
 }
 
 defineProps<Props>()
-
 </script>
 
 <style scoped>

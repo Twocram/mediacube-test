@@ -2,18 +2,25 @@
   <div class="task-list">
     <VueDraggableNext handle=".todo-list__item-handle" v-model="localTasks">
       <TransitionGroup>
-        <VTaskListItem @edit="emits('edit', $event)" v-for="task in localTasks" :key="task.id"
-          :isCompleted="task.isCompleted" :id="task.id" :title="task.title" :isFiltered="isFilteredMode" />
+        <VTaskListItem
+          @edit="emits('edit', $event)"
+          v-for="task in localTasks"
+          :key="task.id"
+          :isCompleted="task.isCompleted"
+          :id="task.id"
+          :title="task.title"
+          :isFiltered="isFilteredMode"
+        />
       </TransitionGroup>
     </VueDraggableNext>
   </div>
 </template>
 
 <script setup lang="ts">
-import type { Task } from '@/types/task';
-import VTaskListItem from './VTaskListItem.vue';
-import { VueDraggableNext } from 'vue-draggable-next';
-import { ref, watch } from 'vue';
+import type { Task } from '@/types/task'
+import VTaskListItem from './VTaskListItem.vue'
+import { VueDraggableNext } from 'vue-draggable-next'
+import { ref, watch } from 'vue'
 type Props = {
   tasks: Task[]
   isFiltered: boolean
@@ -27,14 +34,19 @@ const localTasks = ref<Task[]>([])
 
 const isFilteredMode = ref(false)
 
-watch(() => props.tasks, (newTasks) => {
-  localTasks.value = newTasks
-})
+watch(
+  () => props.tasks,
+  (newTasks) => {
+    localTasks.value = newTasks
+  },
+)
 
-watch(() => props.isFiltered, (newValue) => {
-  isFilteredMode.value = newValue
-})
-
+watch(
+  () => props.isFiltered,
+  (newValue) => {
+    isFilteredMode.value = newValue
+  },
+)
 </script>
 
 <style scoped>

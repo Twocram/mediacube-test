@@ -1,16 +1,19 @@
 <template>
   <form @submit.prevent="submitHandler" class="wrapper-content__form">
-    <VInput class="wrapper-content__form-input" placeholder="Add new todo..." type="text" v-model="inputValue" />
+    <VInput
+      class="wrapper-content__form-input"
+      placeholder="Add new todo..."
+      type="text"
+      v-model="inputValue"
+    />
 
-    <VButton v-if="inputValue" size="medium" type="submit">
-      Submit
-    </VButton>
+    <VButton v-if="inputValue" size="medium" type="submit"> Submit </VButton>
   </form>
 </template>
 
 <script setup lang="ts">
-import VInput from './ui/VInput.vue';
-import VButton from './ui/VButton.vue';
+import VInput from './ui/VInput.vue'
+import VButton from './ui/VButton.vue'
 
 const inputValue = defineModel<string>()
 

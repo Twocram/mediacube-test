@@ -11,13 +11,23 @@
           <VTaskList :is-filtered="isFiltered" :tasks="tasks" @edit="editTaskHandler($event)" />
 
           <div class="wrapper-content__cards" v-if="tasks.length > 0">
-            <VProgressCard :count-label="pluralizeText(notCompletedTasks.length, 'task')"
-              class="wrapper-content__cards-progress" :count="notCompletedTasks.length" :total="tasks.length"
-              color="#2578F4" status="In progress" />
+            <VProgressCard
+              :count-label="pluralizeText(notCompletedTasks.length, 'task')"
+              class="wrapper-content__cards-progress"
+              :count="notCompletedTasks.length"
+              :total="tasks.length"
+              color="#2578F4"
+              status="In progress"
+            />
 
-            <VProgressCard :count-label="pluralizeText(completedTasks.length, 'task')"
-              class="wrapper-content__cards-progress" :count="completedTasks.length" :total="tasks.length"
-              color="rgba(239, 93, 168, 1)" status="Completed" />
+            <VProgressCard
+              :count-label="pluralizeText(completedTasks.length, 'task')"
+              class="wrapper-content__cards-progress"
+              :count="completedTasks.length"
+              :total="tasks.length"
+              color="rgba(239, 93, 168, 1)"
+              status="Completed"
+            />
           </div>
 
           <div class="wrapper-content__footer" v-if="tasks.length < 1">
@@ -35,17 +45,17 @@
 import { computed, onMounted, ref } from 'vue'
 import VCheckmarkIcon from './components/icons/VCheckmarkIcon.vue'
 import VTodoIcon from './components/icons/VTodoIcon.vue'
-import VProgressCard from './components/VProgressCard.vue';
-import { useTaskStore } from './stores/task';
-import VCreateTaskForm from './components/VCreateTaskForm.vue';
-import type { Task, TaskType } from './types/task';
-import VTaskListActions from './components/VTaskListActions.vue';
-import VTaskList from './components/VTaskList.vue';
-import { pluralizeText } from './utils/textUtils';
-import { useTheme } from './composables/useTheme';
+import VProgressCard from './components/VProgressCard.vue'
+import { useTaskStore } from './stores/task'
+import VCreateTaskForm from './components/VCreateTaskForm.vue'
+import type { Task, TaskType } from './types/task'
+import VTaskListActions from './components/VTaskListActions.vue'
+import VTaskList from './components/VTaskList.vue'
+import { pluralizeText } from './utils/textUtils'
+import { useTheme } from './composables/useTheme'
 
-import VThemeSwitcher from './components/ui/VThemeSwitcher.vue';
-import { useKeyboardEvent } from './composables/useKeyboardEvent';
+import VThemeSwitcher from './components/ui/VThemeSwitcher.vue'
+import { useKeyboardEvent } from './composables/useKeyboardEvent'
 
 const taskStore = useTaskStore()
 
@@ -72,7 +82,10 @@ useKeyboardEvent('keydown', escapeHandler)
 
 const createTaskHandler = async (value: string) => {
   if (isEditMode.value && editTask.value) {
-    await taskStore.updateTask(editTask.value.id, { title: value, isCompleted: editTask.value.isCompleted })
+    await taskStore.updateTask(editTask.value.id, {
+      title: value,
+      isCompleted: editTask.value.isCompleted,
+    })
     isEditMode.value = false
     inputValue.value = ''
     return
@@ -109,7 +122,6 @@ onMounted(async () => {
   checkTheme()
   taskStore.fetchTasks()
 })
-
 </script>
 
 <style scoped>
@@ -130,7 +142,6 @@ onMounted(async () => {
   border-radius: 24px;
   padding: 32px;
 }
-
 
 .wrapper-theme__button {
   position: absolute;
@@ -196,7 +207,7 @@ onMounted(async () => {
 
   .wrapper-content__cards {
     flex-direction: column;
-    gap: 12px
+    gap: 12px;
   }
 
   .wrapper-content__cards-progress {
