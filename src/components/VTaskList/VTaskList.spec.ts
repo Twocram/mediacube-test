@@ -21,7 +21,7 @@ describe('TaskList', () => {
     vi.clearAllMocks()
   })
 
-  it('должен отображать элементы из пропса tasks', async () => {
+  it('should display the items from the props', async () => {
     wrapper = mount(TaskList, {
       props: {
         tasks,
@@ -34,7 +34,7 @@ describe('TaskList', () => {
     expect(taskItems.length).toBe(tasks.length)
   })
 
-  it('должен обновлять localTasks при изменении пропса tasks', async () => {
+  it('should update localTasks when the tasks props are changed', async () => {
     wrapper = mount(TaskList, {
       props: {
         tasks,

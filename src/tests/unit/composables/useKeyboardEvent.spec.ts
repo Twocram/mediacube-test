@@ -16,7 +16,7 @@ describe('useKeyboardEvent', () => {
     vi.clearAllMocks()
   })
 
-  it('должен добавлять обработчик события при монтировании', async () => {
+  it('must add an event handler when mounted', async () => {
     const eventName = 'keydown'
 
     mount({
@@ -33,7 +33,7 @@ describe('useKeyboardEvent', () => {
     expect(window.addEventListener).toHaveBeenCalledWith(eventName, handler)
   })
 
-  it('должен удалять обработчик события при размонтировании', async () => {
+  it('must remove the event handler on unmounting', async () => {
     const eventName = 'keydown'
 
     const wrapper = mount({
