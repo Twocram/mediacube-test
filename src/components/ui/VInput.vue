@@ -32,6 +32,6 @@ const modelValue = defineModel<string>()
 .input::placeholder {
   font-size: 14px;
   line-height: 16px;
-  color: var(--main-color);
+  color: rgba(143, 153, 163, 1);
 }
 </style>
