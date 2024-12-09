@@ -9,13 +9,14 @@ const mockTasks = [
   { id: '3', title: 'Task 3', isCompleted: true },
 ]
 
-describe('FooterActions.vue', () => {
+describe('VTaskListActions.vue', () => {
   const createWrapper = (props = {}) => {
     return mount(VTaskListActions, {
       props: {
         tasks: mockTasks,
         completedTasksLength: 2,
         notCompletedTasksLength: 1,
+        activeType: 'all',
         ...props,
       },
       global: {
