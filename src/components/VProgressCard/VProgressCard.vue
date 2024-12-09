@@ -7,7 +7,7 @@
 </template>
 
 <script setup lang="ts">
-import VProgressBar from '../ui/VProgressBar.vue'
+import VProgressBar from '@/components/ui/VProgressBar.vue'
 
 type Props = {
   status: string

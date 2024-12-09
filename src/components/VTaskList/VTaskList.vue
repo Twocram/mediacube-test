@@ -2,15 +2,8 @@
   <div class="task-list">
     <VueDraggableNext handle=".todo-list__item-handle" v-model="localTasks">
       <TransitionGroup>
-        <VTaskListItem
-          @edit="emits('edit', $event)"
-          v-for="task in localTasks"
-          :key="task.id"
-          :isCompleted="task.isCompleted"
-          :id="task.id"
-          :title="task.title"
-          :isFiltered="isFilteredMode"
-        />
+        <VTaskListItem @edit="emits('edit', $event)" v-for="task in localTasks" :key="task.id"
+          :isCompleted="task.isCompleted" :id="task.id" :title="task.title" :isFiltered="isFilteredMode" />
       </TransitionGroup>
     </VueDraggableNext>
   </div>
@@ -18,7 +11,7 @@
 
 <script setup lang="ts">
 import type { Task } from '@/types/task.ts'
-import VTaskListItem from '../VTastListItem/VTaskListItem.vue'
+import VTaskListItem from '@/components/VTastListItem/VTaskListItem.vue'
 import { VueDraggableNext } from 'vue-draggable-next'
 import { ref, watch } from 'vue'
 type Props = {

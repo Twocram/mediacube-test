@@ -1,6 +1,6 @@
 import { onMounted, onBeforeUnmount } from 'vue'
 
-export function useKeyboardEvent(eventName: string, handler: (event: KeyboardEvent) => void) {
+export const useKeyboardEvent = (eventName: string, handler: (event: KeyboardEvent) => void) => {
   onMounted(() => {
     window.addEventListener(eventName, handler as EventListener)
   })

@@ -3,21 +3,10 @@
     <div class="todo-list__item-handle" :class="{ hidden: isFiltered }">
       <VDragIcon />
     </div>
-    <VCheckbox
-      :value="isCompleted"
-      class="todo-list__item-checkbox"
-      @change="changeHandler($event)"
-    />
-    <span
-      class="todo-list__item-label"
-      :class="{ 'todo-list__item-label--completed': isCompleted }"
-      >{{ title }}</span
-    >
+    <VCheckbox :value="isCompleted" class="todo-list__item-checkbox" @change="changeHandler($event)" />
+    <span class="todo-list__item-label" :class="{ 'todo-list__item-label--completed': isCompleted }">{{ title }}</span>
     <div class="todo-list__item-actions">
-      <VPencilIcon
-        class="todo-list__item-pencil"
-        @click="emits('edit', { id, title, isCompleted })"
-      />
+      <VPencilIcon class="todo-list__item-pencil" @click="emits('edit', { id, title, isCompleted })" />
       <VBinIcon class="todo-list__item-bin" @click="deleteTaskHandler(id)" />
     </div>
   </div>
@@ -25,10 +14,10 @@
 
 <script setup lang="ts">
 import { useTaskStore } from '@/stores/task.ts'
-import VBinIcon from '../icons/VBinIcon.vue'
-import VPencilIcon from '../icons/VPencilIcon.vue'
-import VCheckbox from '../ui/VCheckbox.vue'
-import VDragIcon from '../icons/VDragIcon.vue'
+import VBinIcon from '@/components/icons/VBinIcon.vue'
+import VPencilIcon from '@/components/icons/VPencilIcon.vue'
+import VCheckbox from '@/components/ui/VCheckbox.vue'
+import VDragIcon from '@/components/icons/VDragIcon.vue'
 
 type Props = {
   id: string

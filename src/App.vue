@@ -10,26 +10,16 @@
 
           <VTaskList :is-filtered="isFiltered" :tasks="tasks" @edit="editTaskHandler($event)" />
 
-          <VProgressCardList
-            v-if="tasks.length > 0"
-            :completed-tasks-length="completedTasks.length"
-            :not-completed-tasks-length="notCompletedTasks.length"
-            :tasks-length="tasks.length"
-          />
+          <VProgressCardList v-if="tasks.length > 0" :completed-tasks-length="completedTasks.length"
+            :not-completed-tasks-length="notCompletedTasks.length" :tasks-length="tasks.length" />
 
           <div class="wrapper-content__footer" v-if="!tasks.length">
             <VCheckmarkIcon /> <span>Congrat, you have no more tasks to do</span>
           </div>
 
-          <VTaskListActions
-            @filter-tasks="filterTasksHandler($event)"
-            @delete-completed-tasks="deleteCompletedTasks"
-            @complete-all-tasks="completeAllTasks"
-            :tasks="tasks"
-            :completed-tasks-length="completedTasks.length"
-            :not-completed-tasks-length="notCompletedTasks.length"
-            v-else
-          />
+          <VTaskListActions @filter-tasks="filterTasksHandler($event)" @delete-completed-tasks="deleteCompletedTasks"
+            @complete-all-tasks="completeAllTasks" :tasks="tasks" :completed-tasks-length="completedTasks.length"
+            :not-completed-tasks-length="notCompletedTasks.length" v-else />
         </div>
       </div>
     </div>
@@ -38,18 +28,18 @@
 
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue'
-import VCheckmarkIcon from './components/icons/VCheckmarkIcon.vue'
-import VTodoIcon from './components/icons/VTodoIcon.vue'
-import { useTaskStore } from './stores/task'
-import VCreateTaskForm from './components/VCreateTaskForm/VCreateTaskForm.vue'
-import type { Task, TaskType } from './types/task'
-import VTaskListActions from './components/VTaskListActions/VTaskListActions.vue'
-import VTaskList from './components/VTaskList/VTaskList.vue'
-import { useTheme } from './composables/useTheme'
+import VCheckmarkIcon from '@/components/icons/VCheckmarkIcon.vue'
+import VTodoIcon from '@/components/icons/VTodoIcon.vue'
+import { useTaskStore } from '@/stores/task'
+import VCreateTaskForm from '@/components/VCreateTaskForm/VCreateTaskForm.vue'
+import type { Task, TaskType } from '@/types/task'
+import VTaskListActions from '@/components/VTaskListActions/VTaskListActions.vue'
+import VTaskList from '@/components/VTaskList/VTaskList.vue'
+import { useTheme } from '@/composables/useTheme'
 
-import VThemeSwitcher from './components/ui/VThemeSwitcher.vue'
-import { useKeyboardEvent } from './composables/useKeyboardEvent'
-import VProgressCardList from './components/VProgressCardList/VProgressCardList.vue'
+import VThemeSwitcher from '@/components/ui/VThemeSwitcher.vue'
+import { useKeyboardEvent } from '@/composables/useKeyboardEvent'
+import VProgressCardList from '@/components/VProgressCardList/VProgressCardList.vue'
 
 const taskStore = useTaskStore()
 
@@ -71,7 +61,7 @@ const editTask = ref<Task | null>(null)
 
 const tasksType = ref<TaskType>('all')
 
-function escapeHandler(event: KeyboardEvent) {
+const escapeHandler = (event: KeyboardEvent) => {
   if (event.key === 'Escape') {
     isEditMode.value = false
     inputValue.value = ''
