@@ -21,7 +21,7 @@ type Props = {
 
 const props = defineProps<Props>()
 
-const emits = defineEmits(['edit'])
+const emits = defineEmits(['edit',])
 
 const localTasks = ref<Task[]>([])
 

@@ -17,9 +17,10 @@
             <VCheckmarkIcon /> <span>Congrat, you have no more tasks to do</span>
           </div>
 
-          <VTaskListActions @filter-tasks="filterTasksHandler($event)" @delete-completed-tasks="deleteCompletedTasks"
-            @complete-all-tasks="completeAllTasks" :tasks="tasks" :completed-tasks-length="completedTasks.length"
-            :not-completed-tasks-length="notCompletedTasks.length" v-else />
+          <VTaskListActions :active-type="tasksType" @filter-tasks="filterTasksHandler($event)"
+            @delete-completed-tasks="deleteCompletedTasks" @complete-all-tasks="completeAllTasks" :tasks="tasks"
+            :completed-tasks-length="completedTasks.length" :not-completed-tasks-length="notCompletedTasks.length"
+            v-else />
         </div>
       </div>
     </div>
@@ -110,9 +111,16 @@ const editTaskHandler = async (task: Task) => {
   editTask.value = task
 }
 
-const deleteCompletedTasks = async () => await taskStore.deleteCompletedTasks()
 
-const completeAllTasks = async () => await taskStore.completeAllTasks()
+const deleteCompletedTasks = async () => {
+  await taskStore.deleteCompletedTasks()
+  tasksType.value = 'all'
+}
+
+const completeAllTasks = async () => {
+  await taskStore.completeAllTasks()
+  tasksType.value = 'all'
+}
 
 onMounted(async () => {
   checkTheme()

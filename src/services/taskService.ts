@@ -46,15 +46,20 @@ class TaskService {
     }
   }
 
-  async deleteTask(taskId: string): Promise<void> {
+  async deleteTask(taskId: string): Promise<Task> {
     try {
-      await fetch(`/api/tasks/${taskId}`, {
+      const response = await fetch(`/api/tasks/${taskId}`, {
         method: 'DELETE',
         headers: {
           Accept: 'application/json',
           'Content-Type': 'application/json',
         },
       })
+
+      if (!response.ok) {
+        throw new Error('Failed to delete task')
+      }
+      return response.json()
     } catch (error: unknown) {
       throw error
     }
@@ -75,30 +80,6 @@ class TaskService {
       }
 
       return response.json()
-    } catch (error: unknown) {
-      throw error
-    }
-  }
-
-  async updateTasks(tasks: Task[]): Promise<void> {
-    try {
-      await fetch('/api/tasks', {
-        method: 'DELETE',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-      })
-
-      for (const task of tasks) {
-        await fetch('/api/tasks', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(task),
-        })
-      }
     } catch (error: unknown) {
       throw error
     }

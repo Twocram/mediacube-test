@@ -22,7 +22,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed } from 'vue'
 import VButton from '@/components/ui/VButton.vue'
 import type { Task, TaskType } from '@/types/task'
 
@@ -31,27 +31,25 @@ const props = defineProps<{
   tasks: Task[]
   completedTasksLength: number
   notCompletedTasksLength: number
+  activeType: TaskType
 }>()
 
 const emit = defineEmits(['delete-completed-tasks', 'complete-all-tasks', 'filter-tasks'])
 
-const activeType = ref<TaskType>('all')
 
-const allButtonColor = computed(() => (activeType.value === 'all' ? 'primary' : 'colorless'))
-const activeButtonColor = computed(() => (activeType.value === 'active' ? 'primary' : 'colorless'))
+const allButtonColor = computed(() => (props.activeType === 'all' ? 'primary' : 'colorless'))
+const activeButtonColor = computed(() => (props.activeType === 'active' ? 'primary' : 'colorless'))
 const completedButtonColor = computed(() =>
-  activeType.value === 'completed' ? 'primary' : 'colorless',
+  props.activeType === 'completed' ? 'primary' : 'colorless',
 )
 
 const tasksLength = computed(() => props.tasks.length)
 
 const deleteCompletedTasks = () => emit('delete-completed-tasks')
 const completeAllTasks = () => {
-  activeType.value = 'all'
   emit('complete-all-tasks')
 }
 const filterTasks = (type: TaskType) => {
-  activeType.value = type
   emit('filter-tasks', type)
 }
 </script>

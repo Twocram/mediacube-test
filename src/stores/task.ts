@@ -28,23 +28,24 @@ export const useTaskStore = defineStore('task', {
     },
 
     async createTask(taskName: string) {
-      await taskService.createTask(taskName)
-      await this.fetchTasks()
+      const _task = await taskService.createTask(taskName)
+      if (_task) {
+        this.setTasks([...this.tasks, _task])
+      }
     },
 
     async deleteTask(taskId: string) {
-      await taskService.deleteTask(taskId)
-      await this.fetchTasks()
+      const _task = await taskService.deleteTask(taskId)
+      if (_task) {
+        this.setTasks(this.tasks.filter((task) => task.id !== taskId))
+      }
     },
 
     async updateTask(taskId: string, options: Omit<Task, 'id'>) {
-      await taskService.updateTask(taskId, options)
-      await this.fetchTasks()
-    },
-
-    async updateTasks(tasks: Task[]) {
-      await taskService.updateTasks(tasks)
-      await this.fetchTasks()
+      const _task = await taskService.updateTask(taskId, options)
+      if (_task) {
+        this.setTasks(this.tasks.map((task) => (task.id === taskId ? _task : task)))
+      }
     },
 
     async deleteCompletedTasks() {
