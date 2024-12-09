@@ -1,9 +1,11 @@
 import type { Task } from '@/types/task'
 
+const serverUrl = import.meta.env['VITE_SERVER_URL']
+
 class TaskService {
   async getTasks(): Promise<Task[]> {
     try {
-      const response = await fetch('/tasks', {
+      const response = await fetch(`${serverUrl}/tasks`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -28,7 +30,7 @@ class TaskService {
     }
 
     try {
-      const response = await fetch('/tasks', {
+      const response = await fetch(`${serverUrl}/tasks`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -48,7 +50,7 @@ class TaskService {
 
   async deleteTask(taskId: string): Promise<Task> {
     try {
-      const response = await fetch(`/tasks/${taskId}`, {
+      const response = await fetch(`${serverUrl}/tasks/${taskId}`, {
         method: 'DELETE',
         headers: {
           Accept: 'application/json',
@@ -67,7 +69,7 @@ class TaskService {
 
   async updateTask(taskId: string, options: Omit<Task, 'id'>): Promise<Task> {
     try {
-      const response = await fetch(`/tasks/${taskId}`, {
+      const response = await fetch(`${serverUrl}/tasks/${taskId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

@@ -15,7 +15,7 @@ export default defineConfig({
   },
   server: {
     proxy: {
-      '/tasks': {
+      '/api': {
         target: env['VITE_SERVER_URL'],
         changeOrigin: true,
       },
