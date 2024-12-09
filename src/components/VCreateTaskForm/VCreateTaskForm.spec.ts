@@ -9,6 +9,7 @@ describe('VCreateTaskForm.vue', () => {
     const wrapper = mount(VCreateTaskForm, {
       props: {
         isEditMode: false,
+        isResponseSending: false,
       },
     })
 
@@ -23,6 +24,7 @@ describe('VCreateTaskForm.vue', () => {
     const wrapper = mount(VCreateTaskForm, {
       props: {
         isEditMode: false,
+        isResponseSending: false,
       },
     })
     const input = wrapper.findComponent(VInput)
@@ -39,6 +41,7 @@ describe('VCreateTaskForm.vue', () => {
     const wrapper = mount(VCreateTaskForm, {
       props: {
         isEditMode: false,
+        isResponseSending: false,
       },
     })
     const input = wrapper.findComponent(VInput)
@@ -62,6 +65,7 @@ describe('VCreateTaskForm.vue', () => {
     const wrapper = mount(VCreateTaskForm, {
       props: {
         isEditMode: false,
+        isResponseSending: false,
       },
     })
 
@@ -75,6 +79,7 @@ describe('VCreateTaskForm.vue', () => {
     const wrapper = mount(VCreateTaskForm, {
       props: {
         isEditMode: true,
+        isResponseSending: false,
       },
     })
 
