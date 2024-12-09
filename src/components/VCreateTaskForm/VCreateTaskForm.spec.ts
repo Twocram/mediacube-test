@@ -16,16 +16,16 @@ describe('TodoForm.vue', () => {
   })
 
   it('shows the submit button when input has a value', async () => {
-    const wrapper = mount(VCreateTaskForm);
-    const input = wrapper.findComponent(VInput);
+    const wrapper = mount(VCreateTaskForm)
+    const input = wrapper.findComponent(VInput)
 
-    input.vm.$emit('update:modelValue', 'New Todo');
+    input.vm.$emit('update:modelValue', 'New Todo')
 
-    await flushPromises();
+    await flushPromises()
 
-    const button = wrapper.findComponent(VButton);
-    expect(button.exists()).toBe(true);
-  });
+    const button = wrapper.findComponent(VButton)
+    expect(button.exists()).toBe(true)
+  })
 
   it('emits the submit event with the correct value and clears the input', async () => {
     const wrapper = mount(VCreateTaskForm)
@@ -33,7 +33,7 @@ describe('TodoForm.vue', () => {
 
     input.vm.$emit('update:modelValue', 'New Todo')
 
-    await flushPromises();
+    await flushPromises()
 
     const button = wrapper.findComponent(VButton)
 

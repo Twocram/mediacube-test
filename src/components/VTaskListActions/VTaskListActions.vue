@@ -1,19 +1,32 @@
 <template>
   <div class="wrapper-content__footer-actions">
-    <VButton @click="completeAllTasks" :class="{ 'button-hidden': completedTasksLength === tasksLength }"
-      color="colorless">
+    <VButton
+      @click="completeAllTasks"
+      :class="{ 'button-hidden': completedTasksLength === tasksLength }"
+      color="colorless"
+    >
       Check all
     </VButton>
     <VButton :color="allButtonColor" @click="filterTasks('all')"> All </VButton>
-    <VButton :color="activeButtonColor" @click="filterTasks('active')"
-      :class="{ 'button-hidden': notCompletedTasksLength === 0 }">
+    <VButton
+      :color="activeButtonColor"
+      @click="filterTasks('active')"
+      :class="{ 'button-hidden': notCompletedTasksLength === 0 }"
+    >
       Active
     </VButton>
-    <VButton :color="completedButtonColor" @click="filterTasks('completed')"
-      :class="{ 'button-hidden': completedTasksLength === 0 }">
+    <VButton
+      :color="completedButtonColor"
+      @click="filterTasks('completed')"
+      :class="{ 'button-hidden': completedTasksLength === 0 }"
+    >
       Completed
     </VButton>
-    <VButton @click="deleteCompletedTasks" color="colorless" :class="{ 'button-hidden': completedTasksLength < 1 }">
+    <VButton
+      @click="deleteCompletedTasks"
+      color="colorless"
+      :class="{ 'button-hidden': completedTasksLength < 1 }"
+    >
       Clear completed
     </VButton>
   </div>
@@ -22,7 +35,7 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 import VButton from '@/components/ui/VButton.vue'
-import type { Task } from '@/types/task';
+import type { Task } from '@/types/task'
 
 type ButtonActiveType = 'all' | 'active' | 'completed'
 
@@ -32,17 +45,15 @@ const props = defineProps<{
   notCompletedTasksLength: number
 }>()
 
-const emit = defineEmits([
-  'delete-completed-tasks',
-  'complete-all-tasks',
-  'filter-tasks'
-])
+const emit = defineEmits(['delete-completed-tasks', 'complete-all-tasks', 'filter-tasks'])
 
 const activeType = ref<ButtonActiveType>('all')
 
 const allButtonColor = computed(() => (activeType.value === 'all' ? 'primary' : 'colorless'))
 const activeButtonColor = computed(() => (activeType.value === 'active' ? 'primary' : 'colorless'))
-const completedButtonColor = computed(() => (activeType.value === 'completed' ? 'primary' : 'colorless'))
+const completedButtonColor = computed(() =>
+  activeType.value === 'completed' ? 'primary' : 'colorless',
+)
 
 const tasksLength = computed(() => props.tasks.length)
 

@@ -10,16 +10,26 @@
 
           <VTaskList :is-filtered="isFiltered" :tasks="tasks" @edit="editTaskHandler($event)" />
 
-          <VProgressCardList v-if="tasks.length > 0" :completed-tasks-length="completedTasks.length"
-            :not-completed-tasks-length="notCompletedTasks.length" :tasks-length="tasks.length" />
+          <VProgressCardList
+            v-if="tasks.length > 0"
+            :completed-tasks-length="completedTasks.length"
+            :not-completed-tasks-length="notCompletedTasks.length"
+            :tasks-length="tasks.length"
+          />
 
           <div class="wrapper-content__footer" v-if="!tasks.length">
             <VCheckmarkIcon /> <span>Congrat, you have no more tasks to do</span>
           </div>
 
-          <VTaskListActions @filter-tasks="filterTasksHandler($event)" @delete-completed-tasks="deleteCompletedTasks"
-            @complete-all-tasks="completeAllTasks" :tasks="tasks" :completed-tasks-length="completedTasks.length"
-            :not-completed-tasks-length="notCompletedTasks.length" v-else />
+          <VTaskListActions
+            @filter-tasks="filterTasksHandler($event)"
+            @delete-completed-tasks="deleteCompletedTasks"
+            @complete-all-tasks="completeAllTasks"
+            :tasks="tasks"
+            :completed-tasks-length="completedTasks.length"
+            :not-completed-tasks-length="notCompletedTasks.length"
+            v-else
+          />
         </div>
       </div>
     </div>

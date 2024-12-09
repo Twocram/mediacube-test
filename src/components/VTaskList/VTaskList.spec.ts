@@ -12,8 +12,8 @@ describe('TaskList', () => {
     const pinia = createPinia()
     setActivePinia(pinia)
     tasks = [
-      { id: "1", title: 'Task 1', isCompleted: false },
-      { id: "2", title: 'Task 2', isCompleted: true },
+      { id: '1', title: 'Task 1', isCompleted: false },
+      { id: '2', title: 'Task 2', isCompleted: true },
     ]
   })
 
@@ -43,8 +43,8 @@ describe('TaskList', () => {
     })
 
     const newTasks = [
-      { id: "3", title: 'Task 3', isCompleted: false },
-      { id: "4", title: 'Task 4', isCompleted: true },
+      { id: '3', title: 'Task 3', isCompleted: false },
+      { id: '4', title: 'Task 4', isCompleted: true },
     ]
     await wrapper.setProps({ tasks: newTasks })
 
@@ -53,5 +53,4 @@ describe('TaskList', () => {
     expect(taskItems[0].props().id).toBe(newTasks[0].id)
     expect(taskItems[1].props().id).toBe(newTasks[1].id)
   })
-
 })

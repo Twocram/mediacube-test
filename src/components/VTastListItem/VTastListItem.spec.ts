@@ -1,12 +1,11 @@
-import { mount } from '@vue/test-utils';
+import { mount } from '@vue/test-utils'
 import { describe, it, expect, vi, beforeEach } from 'vitest'
-import VTaskListItem from './VTaskListItem.vue';
-import VCheckbox from '../ui/VCheckbox.vue';
-import VPencilIcon from '../icons/VPencilIcon.vue';
-import VBinIcon from '../icons/VBinIcon.vue';
-import VDragIcon from '../icons/VDragIcon.vue';
+import VTaskListItem from './VTaskListItem.vue'
+import VCheckbox from '../ui/VCheckbox.vue'
+import VPencilIcon from '../icons/VPencilIcon.vue'
+import VBinIcon from '../icons/VBinIcon.vue'
+import VDragIcon from '../icons/VDragIcon.vue'
 import { createPinia, setActivePinia } from 'pinia'
-
 
 vi.mock('../../services/taskService.ts', () => ({
   taskService: {
@@ -23,7 +22,7 @@ vi.mock('@/stores/task.ts', () => ({
     deleteTask: vi.fn(),
     updateTask: vi.fn(),
   }),
-}));
+}))
 
 describe('TodoItem.vue', () => {
   const props = {
@@ -31,7 +30,7 @@ describe('TodoItem.vue', () => {
     title: 'Test Task',
     isCompleted: false,
     isFiltered: false,
-  };
+  }
 
   beforeEach(() => {
     const pinia = createPinia()
@@ -42,53 +41,52 @@ describe('TodoItem.vue', () => {
     const wrapper = mount(VTaskListItem, {
       props,
       global: {
-        plugins: [createPinia()]
-      }
-    });
+        plugins: [createPinia()],
+      },
+    })
 
-    expect(wrapper.text()).toContain(props.title);
-    expect(wrapper.findComponent(VCheckbox).props('value')).toBe(props.isCompleted);
-    expect(wrapper.findComponent(VDragIcon).exists()).toBe(true);
-    expect(wrapper.findComponent(VPencilIcon).exists()).toBe(true);
-    expect(wrapper.findComponent(VBinIcon).exists()).toBe(true);
-  });
+    expect(wrapper.text()).toContain(props.title)
+    expect(wrapper.findComponent(VCheckbox).props('value')).toBe(props.isCompleted)
+    expect(wrapper.findComponent(VDragIcon).exists()).toBe(true)
+    expect(wrapper.findComponent(VPencilIcon).exists()).toBe(true)
+    expect(wrapper.findComponent(VBinIcon).exists()).toBe(true)
+  })
 
   it('applies completed class when task is completed', async () => {
     const wrapper = mount(VTaskListItem, {
       props: { ...props, isCompleted: true },
       global: {
-        plugins: [createPinia()]
-      }
-    });
+        plugins: [createPinia()],
+      },
+    })
 
-    const label = wrapper.find('.todo-list__item-label');
-    expect(label.classes()).toContain('todo-list__item-label--completed');
-  });
+    const label = wrapper.find('.todo-list__item-label')
+    expect(label.classes()).toContain('todo-list__item-label--completed')
+  })
 
   it('hides drag handle when filtered', () => {
     const wrapper = mount(VTaskListItem, {
       props: { ...props, isFiltered: true },
       global: {
-        plugins: [createPinia()]
-      }
-    });
+        plugins: [createPinia()],
+      },
+    })
 
-    const handle = wrapper.find('.todo-list__item-handle');
-    expect(handle.classes()).toContain('hidden');
-  });
+    const handle = wrapper.find('.todo-list__item-handle')
+    expect(handle.classes()).toContain('hidden')
+  })
 
   it('emits edit event with correct payload when edit icon is clicked', async () => {
     const wrapper = mount(VTaskListItem, {
       props,
       global: {
-        plugins: [createPinia()]
-      }
-    });
+        plugins: [createPinia()],
+      },
+    })
 
-    const pencilIcon = wrapper.findComponent(VPencilIcon);
-    await pencilIcon.trigger('click');
+    const pencilIcon = wrapper.findComponent(VPencilIcon)
+    await pencilIcon.trigger('click')
 
-    expect(wrapper.emitted('edit')).toHaveLength(1);
-  });
-
-});
+    expect(wrapper.emitted('edit')).toHaveLength(1)
+  })
+})

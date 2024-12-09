@@ -1,5 +1,3 @@
 import { vi } from 'vitest'
 
-vi.mock('../../stores/task', {
-
-})
+vi.mock('../../stores/task', {})

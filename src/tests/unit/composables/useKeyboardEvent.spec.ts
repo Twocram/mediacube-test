@@ -24,7 +24,7 @@ describe('useKeyboardEvent', () => {
         useKeyboardEvent(eventName, handler)
         return {}
       },
-      template: '<div></div>'
+      template: '<div></div>',
     })
 
     await flushPromises()
@@ -41,7 +41,7 @@ describe('useKeyboardEvent', () => {
         useKeyboardEvent(eventName, handler)
         return {}
       },
-      template: '<div></div>'
+      template: '<div></div>',
     })
 
     await flushPromises()
