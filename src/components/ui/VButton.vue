@@ -1,5 +1,9 @@
 <template>
-  <button class="button" :type="type" :class="[`button-${size}`, `button-${color}`, { 'button-loading': isLoading }]">
+  <button
+    class="button"
+    :type="type"
+    :class="[`button-${size}`, `button-${color}`, { 'button-loading': isLoading }]"
+  >
     <div class="loader" v-if="isLoading"></div>
     <slot></slot>
   </button>

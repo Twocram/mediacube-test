@@ -1,20 +1,36 @@
 <template>
   <div class="list-actions__footer-actions">
-    <VButton @click="completeAllTasks" class="button-hidden" :class="{ 'button-visible': checkAllButtonVisible }"
-      color="colorless">
+    <VButton
+      @click="completeAllTasks"
+      class="button-hidden"
+      :class="{ 'button-visible': checkAllButtonVisible }"
+      color="colorless"
+    >
       Check all
     </VButton>
     <VButton :color="allButtonColor" @click="filterTasks('all')"> All </VButton>
-    <VButton :color="activeButtonColor" @click="filterTasks('active')" class="button-hidden"
-      :class="{ 'button-visible': activeButtonVisible }">
+    <VButton
+      :color="activeButtonColor"
+      @click="filterTasks('active')"
+      class="button-hidden"
+      :class="{ 'button-visible': activeButtonVisible }"
+    >
       Active
     </VButton>
-    <VButton class="button-hidden" :color="completedButtonColor" @click="filterTasks('completed')"
-      :class="{ 'button-visible': completedButtonVisible }">
+    <VButton
+      class="button-hidden"
+      :color="completedButtonColor"
+      @click="filterTasks('completed')"
+      :class="{ 'button-visible': completedButtonVisible }"
+    >
       Completed
     </VButton>
-    <VButton class="button-hidden" @click="deleteCompletedTasks" color="colorless"
-      :class="{ 'button-visible': clearCompletedButtonVisible }">
+    <VButton
+      class="button-hidden"
+      @click="deleteCompletedTasks"
+      color="colorless"
+      :class="{ 'button-visible': clearCompletedButtonVisible }"
+    >
       Clear completed
     </VButton>
   </div>
@@ -25,7 +41,6 @@ import { computed } from 'vue'
 import VButton from '@/components/ui/VButton.vue'
 import type { Task, TaskType } from '@/types/task'
 
-
 const props = defineProps<{
   tasks: Task[]
   completedTasksLength: number
@@ -35,7 +50,6 @@ const props = defineProps<{
 
 const emit = defineEmits(['delete-completed-tasks', 'complete-all-tasks', 'filter-tasks'])
 
-
 const allButtonColor = computed(() => (props.activeType === 'all' ? 'primary' : 'colorless'))
 const activeButtonColor = computed(() => (props.activeType === 'active' ? 'primary' : 'colorless'))
 const completedButtonColor = computed(() =>
@@ -43,19 +57,31 @@ const completedButtonColor = computed(() =>
 )
 
 const checkAllButtonVisible = computed(() => {
-  return (props.notCompletedTasksLength === tasksLength.value) || (props.notCompletedTasksLength > 0 && props.completedTasksLength > 0)
+  return (
+    props.notCompletedTasksLength === tasksLength.value ||
+    (props.notCompletedTasksLength > 0 && props.completedTasksLength > 0)
+  )
 })
 
 const activeButtonVisible = computed(() => {
-  return (props.notCompletedTasksLength > 0 && props.completedTasksLength > 0) || (props.notCompletedTasksLength === tasksLength.value)
+  return (
+    (props.notCompletedTasksLength > 0 && props.completedTasksLength > 0) ||
+    props.notCompletedTasksLength === tasksLength.value
+  )
 })
 
 const completedButtonVisible = computed(() => {
-  return (props.notCompletedTasksLength > 0 && props.completedTasksLength > 0) || (props.completedTasksLength === tasksLength.value)
+  return (
+    (props.notCompletedTasksLength > 0 && props.completedTasksLength > 0) ||
+    props.completedTasksLength === tasksLength.value
+  )
 })
 
 const clearCompletedButtonVisible = computed(() => {
-  return (props.completedTasksLength === tasksLength.value) || (props.notCompletedTasksLength > 0 && props.completedTasksLength > 0)
+  return (
+    props.completedTasksLength === tasksLength.value ||
+    (props.notCompletedTasksLength > 0 && props.completedTasksLength > 0)
+  )
 })
 
 const tasksLength = computed(() => props.tasks.length)
