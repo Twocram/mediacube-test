@@ -4,4 +4,4 @@ export type Task = {
   isCompleted: boolean
 }
 
-export type TaskType = 'progress' | 'completed' | 'all'
+export type TaskType = 'active' | 'completed' | 'all'

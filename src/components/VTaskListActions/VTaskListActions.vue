@@ -7,11 +7,11 @@
     </VButton>
     <VButton :color="allButtonColor" @click="filterTasks('all')"> All </VButton>
     <VButton :color="activeButtonColor" @click="filterTasks('active')" class="button-hidden"
-      :class="{ 'button-visible': notCompletedTasksLength > 0 && completedTasksLength > 0 }">
+      :class="{ 'button-visible': (notCompletedTasksLength > 0 && completedTasksLength > 0) || (notCompletedTasksLength === tasksLength) }">
       Active
     </VButton>
     <VButton class="button-hidden" :color="completedButtonColor" @click="filterTasks('completed')"
-      :class="{ 'button-visible': notCompletedTasksLength > 0 && completedTasksLength > 0 }">
+      :class="{ 'button-visible': (notCompletedTasksLength > 0 && completedTasksLength > 0) || (completedTasksLength === tasksLength) }">
       Completed
     </VButton>
     <VButton class="button-hidden" @click="deleteCompletedTasks" color="colorless"
@@ -24,9 +24,8 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 import VButton from '@/components/ui/VButton.vue'
-import type { Task } from '@/types/task'
+import type { Task, TaskType } from '@/types/task'
 
-type ButtonActiveType = 'all' | 'active' | 'completed'
 
 const props = defineProps<{
   tasks: Task[]
@@ -36,7 +35,7 @@ const props = defineProps<{
 
 const emit = defineEmits(['delete-completed-tasks', 'complete-all-tasks', 'filter-tasks'])
 
-const activeType = ref<ButtonActiveType>('all')
+const activeType = ref<TaskType>('all')
 
 const allButtonColor = computed(() => (activeType.value === 'all' ? 'primary' : 'colorless'))
 const activeButtonColor = computed(() => (activeType.value === 'active' ? 'primary' : 'colorless'))
@@ -51,7 +50,7 @@ const completeAllTasks = () => {
   activeType.value = 'all'
   emit('complete-all-tasks')
 }
-const filterTasks = (type: ButtonActiveType) => {
+const filterTasks = (type: TaskType) => {
   activeType.value = type
   emit('filter-tasks', type)
 }

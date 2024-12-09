@@ -24,7 +24,7 @@ vi.mock('@/stores/task.ts', () => ({
   }),
 }))
 
-describe('TodoItem.vue', () => {
+describe('taskItem.vue', () => {
   const props = {
     id: '1',
     title: 'Test Task',
@@ -60,8 +60,8 @@ describe('TodoItem.vue', () => {
       },
     })
 
-    const label = wrapper.find('.todo-list__item-label')
-    expect(label.classes()).toContain('todo-list__item-label--completed')
+    const label = wrapper.find('.task-list__item-label')
+    expect(label.classes()).toContain('task-list__item-label--completed')
   })
 
   it('hides drag handle when filtered', () => {
@@ -72,7 +72,7 @@ describe('TodoItem.vue', () => {
       },
     })
 
-    const handle = wrapper.find('.todo-list__item-handle')
+    const handle = wrapper.find('.task-list__item-handle')
     expect(handle.classes()).toContain('hidden')
   })
 

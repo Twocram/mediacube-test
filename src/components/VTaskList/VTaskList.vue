@@ -1,6 +1,6 @@
 <template>
   <div class="task-list">
-    <VueDraggableNext handle=".todo-list__item-handle" v-model="localTasks">
+    <VueDraggableNext handle=".task-list__item-handle" v-model="localTasks">
       <TransitionGroup>
         <VTaskListItem @edit="emits('edit', $event)" v-for="task in localTasks" :key="task.id"
           :isCompleted="task.isCompleted" :id="task.id" :title="task.title" :isFiltered="isFilteredMode" />

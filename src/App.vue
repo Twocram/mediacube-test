@@ -89,7 +89,7 @@ const tasks = computed<Task[]>(() => {
     return taskStore.tasks.filter((task) => task.isCompleted)
   }
 
-  if (tasksType.value === 'progress') {
+  if (tasksType.value === 'active') {
     return taskStore.tasks.filter((task) => !task.isCompleted)
   }
   return taskStore.tasks

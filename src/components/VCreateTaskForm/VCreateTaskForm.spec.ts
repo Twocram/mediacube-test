@@ -4,7 +4,7 @@ import VCreateTaskForm from './VCreateTaskForm.vue'
 import VInput from '../ui/VInput.vue'
 import VButton from '../ui/VButton.vue'
 
-describe('TodoForm.vue', () => {
+describe('VCreateTaskForm.vue', () => {
   it('renders the input field and does not show the button initially', () => {
     const wrapper = mount(VCreateTaskForm, {
       props: {

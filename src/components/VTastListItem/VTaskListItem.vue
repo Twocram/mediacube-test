@@ -1,13 +1,13 @@
 <template>
-  <div class="todo-list__item">
-    <div class="todo-list__item-handle" :class="{ hidden: isFiltered }">
+  <div class="task-list__item">
+    <div class="task-list__item-handle" :class="{ hidden: isFiltered }">
       <VDragIcon />
     </div>
-    <VCheckbox :value="isCompleted" class="todo-list__item-checkbox" @change="changeHandler($event)" />
-    <span class="todo-list__item-label" :class="{ 'todo-list__item-label--completed': isCompleted }">{{ title }}</span>
-    <div class="todo-list__item-actions">
-      <VPencilIcon class="todo-list__item-pencil" @click="emits('edit', { id, title, isCompleted })" />
-      <VBinIcon class="todo-list__item-bin" @click="deleteTaskHandler(id)" />
+    <VCheckbox :value="isCompleted" class="task-list__item-checkbox" @change="changeHandler($event)" />
+    <span class="task-list__item-label" :class="{ 'task-list__item-label--completed': isCompleted }">{{ title }}</span>
+    <div class="task-list__item-actions">
+      <VPencilIcon class="task-list__item-pencil" @click="emits('edit', { id, title, isCompleted })" />
+      <VBinIcon class="task-list__item-bin" @click="deleteTaskHandler(id)" />
     </div>
   </div>
 </template>
@@ -42,34 +42,34 @@ const changeHandler = async (value: boolean) => {
 </script>
 
 <style scoped>
-.todo-list__item {
+.task-list__item {
   display: flex;
   align-items: center;
   margin-bottom: 16px;
 }
 
-.todo-list__item:hover .todo-list__item-handle {
+.task-list__item:hover .task-list__item-handle {
   opacity: 1;
   pointer-events: all;
 }
 
-.todo-list__item-handle.hidden {
+.task-list__item-handle.hidden {
   opacity: 0;
   cursor: default;
   pointer-events: none;
 }
 
-.todo-list__item:hover .todo-list__item-handle.hidden {
+.task-list__item:hover .task-list__item-handle.hidden {
   opacity: 0;
   cursor: default;
   pointer-events: none;
 }
 
-.todo-list__item:last-child {
+.task-list__item:last-child {
   margin-bottom: 0;
 }
 
-.todo-list__item-handle {
+.task-list__item-handle {
   display: flex;
   align-items: center;
   margin-right: 8px;
@@ -80,39 +80,39 @@ const changeHandler = async (value: boolean) => {
   pointer-events: none;
 }
 
-.todo-list__item-handle:active {
+.task-list__item-handle:active {
   cursor: grabbing;
 }
 
-.todo-list__item-checkbox {
+.task-list__item-checkbox {
   margin-right: 8px;
 }
 
-.todo-list__item-label {
+.task-list__item-label {
   font-size: 14px;
   line-height: 16px;
 }
 
-.todo-list__item-label--completed {
+.task-list__item-label--completed {
   color: var(--gray-color);
 }
 
-.todo-list__item-actions {
+.task-list__item-actions {
   display: flex;
   margin-left: auto;
   gap: 16px;
 }
 
-.todo-list__item-pencil {
+.task-list__item-pencil {
   cursor: pointer;
 }
 
-.todo-list__item-bin {
+.task-list__item-bin {
   cursor: pointer;
 }
 
 @media screen and (max-width: 768px) {
-  .todo-list__item-handle {
+  .task-list__item-handle {
     opacity: 1;
     pointer-events: all;
   }
