@@ -1,113 +1,111 @@
-import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
 import { mount } from '@vue/test-utils'
-import FooterActions from './VTaskListActions.vue'
-import { useTaskStore } from '@/stores/task'
+import { describe, it, expect } from 'vitest'
+import VTaskListActions from './VTaskListActions.vue'
 import VButton from '@/components/ui/VButton.vue'
 
+const mockTasks = [
+  { id: '1', title: 'Task 1', isCompleted: true },
+  { id: '2', title: 'Task 2', isCompleted: false },
+  { id: '3', title: 'Task 3', isCompleted: true },
+]
 
-vi.mock('@/stores/task', () => {
-  return {
-    useTaskStore: vi.fn(),
+describe('FooterActions.vue', () => {
+  const createWrapper = (props = {}) => {
+    return mount(VTaskListActions, {
+      props: {
+        tasks: mockTasks,
+        completedTasksLength: 2,
+        notCompletedTasksLength: 1,
+        ...props,
+      },
+      global: {
+        components: { VButton },
+      },
+    })
   }
-})
 
-describe('FooterActions', () => {
-  let taskStore: any
+  it('renders all buttons correctly', () => {
+    const wrapper = createWrapper()
 
-  beforeEach(() => {
-    taskStore = {
-      tasks: [],
-      completedTasks: [],
-      notCompletedTasks: [],
-      fetchTasks: vi.fn(),
-      completeAllTasks: vi.fn(),
-      deleteCompletedTasks: vi.fn(),
-      setTasks: vi.fn(),
-    }
-
-    // @ts-expect-error await what useTaskStore return taskStore
-    useTaskStore.mockReturnValue(taskStore)
+    expect(wrapper.findAllComponents(VButton).length).toBe(5)
+    expect(wrapper.text()).toContain('Check all')
+    expect(wrapper.text()).toContain('All')
+    expect(wrapper.text()).toContain('Active')
+    expect(wrapper.text()).toContain('Completed')
+    expect(wrapper.text()).toContain('Clear completed')
   })
 
-  afterEach(() => {
-    vi.clearAllMocks()
+  it('emits the correct event when Check all button is clicked', async () => {
+    const wrapper = createWrapper()
+    const button = wrapper.findAllComponents(VButton)[0]
+    await button.trigger('click')
+    expect(wrapper.emitted('complete-all-tasks')).toBeTruthy()
   })
 
-  it('should render buttons with the correct classes', async () => {
-    taskStore.completedTasks = [
-      { id: '1', title: 'Task 1', isCompleted: true },
-      { id: '2', title: 'Task 2', isCompleted: true },
-    ]
-    taskStore.notCompletedTasks = [
-      { id: '3', title: 'Task 3', isCompleted: false },
-      { id: '4', title: 'Task 4', isCompleted: false },
-    ]
-    taskStore.tasks = [
-      { id: '1', title: 'Task 1', isCompleted: true },
-      { id: '2', title: 'Task 2', isCompleted: true },
-      { id: '3', title: 'Task 3', isCompleted: false },
-      { id: '4', title: 'Task 4', isCompleted: false },
-    ]
+  it('hides the Check all button when all tasks are completed', () => {
+    const wrapper = createWrapper({ tasks: mockTasks, completedTasksLength: 3 })
 
-    const wrapper = mount(FooterActions)
+    const checkAllButton = wrapper.findAllComponents(VButton)[0]
 
-    expect(wrapper.findAllComponents(VButton)[0].classes()).not.toContain('button-hidden')
-    expect(wrapper.findAllComponents(VButton)[3].classes()).not.toContain('button-hidden')
-    expect(wrapper.findAllComponents(VButton)[2].classes()).not.toContain('button-hidden')
+    expect(checkAllButton.classes()).toContain('button-hidden')
   })
 
-  it('should call completeAllTasks when "Check all" is clicked', async () => {
-    taskStore.completedTasks = []
-    taskStore.notCompletedTasks = [
-      { id: '1', title: 'Task 1', isCompleted: true },
-      { id: '2', title: 'Task 2', isCompleted: true },
-    ]
-    taskStore.tasks = [
-      { id: '1', title: 'Task 1', isCompleted: true },
-      { id: '2', title: 'Task 2', isCompleted: true },
-    ]
+  it('emits the correct event when Clear completed button is clicked', async () => {
+    const wrapper = createWrapper()
 
-    const wrapper = mount(FooterActions)
+    const button = wrapper.findAllComponents(VButton)[4]
 
-    await wrapper.find('button').trigger('click')
+    await button.trigger('click')
 
-    expect(taskStore.completeAllTasks).toHaveBeenCalled()
+    expect(wrapper.emitted('delete-completed-tasks')).toBeTruthy()
   })
 
-  it('should call getAllTasksHandler when you click on "All"', async () => {
-    const wrapper = mount(FooterActions)
+  it('emits the correct event when All button is clicked', async () => {
+    const wrapper = createWrapper()
 
-    await wrapper.findAllComponents(VButton)[1].trigger('click')
+    const button = wrapper.findAllComponents(VButton)[1]
 
-    expect(wrapper.findAllComponents(VButton)[1].emitted('click')).toHaveLength(1)
+    await button.trigger('click')
+
+    expect(wrapper.emitted('filter-tasks')).toBeTruthy()
+    expect(wrapper.emitted('filter-tasks')?.[0]).toEqual(['all'])
   })
 
-  it('should call getCompletedTasksHandler when you click on "Completed"', async () => {
-    const wrapper = mount(FooterActions)
+  it('emits the correct event when Active button is clicked', async () => {
+    const wrapper = createWrapper()
 
-    await wrapper.findAllComponents(VButton)[3].trigger('click')
+    const button = wrapper.findAllComponents(VButton)[2]
 
-    expect(taskStore.setTasks).toHaveBeenCalledWith(expect.arrayContaining([]))
+    await button.trigger('click')
+
+    expect(wrapper.emitted('filter-tasks')).toBeTruthy()
+    expect(wrapper.emitted('filter-tasks')?.[0]).toEqual(['active'])
   })
 
-  it('should call getNotCompletedTasksHandler when clicking on "Active"', async () => {
-    const wrapper = mount(FooterActions)
+  it('emits the correct event when Completed button is clicked', async () => {
+    const wrapper = createWrapper()
 
-    await wrapper.findAllComponents(VButton)[2].trigger('click')
+    const button = wrapper.findAllComponents(VButton)[3]
 
-    expect(taskStore.setTasks).toHaveBeenCalled()
+    await button.trigger('click')
+
+    expect(wrapper.emitted('filter-tasks')).toBeTruthy()
+    expect(wrapper.emitted('filter-tasks')?.[0]).toEqual(['completed'])
   })
 
-  it('should call deleteCompletedTasks when you click on “Clear completed”', async () => {
-    taskStore.completedTasks = [
-      { id: '1', title: 'Task 1', isCompleted: true },
-      { id: '2', title: 'Task 2', isCompleted: true },
-    ]
+  it('hides the Active button when there are no active tasks', () => {
+    const wrapper = createWrapper({ notCompletedTasksLength: 0 })
 
-    const wrapper = mount(FooterActions)
+    const activeButton = wrapper.findAllComponents(VButton)[2]
 
-    await wrapper.findAllComponents(VButton)[4].trigger('click')
+    expect(activeButton.classes()).toContain('button-hidden')
+  })
 
-    expect(taskStore.deleteCompletedTasks).toHaveBeenCalled()
+  it('hides the Completed button when there are no completed tasks', () => {
+    const wrapper = createWrapper({ completedTasksLength: 0 })
+
+    const completedButton = wrapper.findAllComponents(VButton)[3]
+
+    expect(completedButton.classes()).toContain('button-hidden')
   })
 })

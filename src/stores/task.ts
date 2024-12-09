@@ -5,6 +5,7 @@ import { defineStore } from 'pinia'
 export const useTaskStore = defineStore('task', {
   state: () => ({
     tasks: [] as Task[],
+    isFilteredMode: false,
   }),
 
   getters: {
@@ -15,6 +16,10 @@ export const useTaskStore = defineStore('task', {
   actions: {
     setTasks(tasks: Task[]) {
       this.tasks = tasks
+    },
+
+    setIsFilteredMode(isFilteredMode: boolean) {
+      this.isFilteredMode = isFilteredMode
     },
 
     async fetchTasks() {

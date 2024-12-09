@@ -10,31 +10,16 @@
 
           <VTaskList :is-filtered="isFiltered" :tasks="tasks" @edit="editTaskHandler($event)" />
 
-          <div class="wrapper-content__cards" v-if="tasks.length > 0">
-            <VProgressCard
-              :count-label="pluralizeText(notCompletedTasks.length, 'task')"
-              class="wrapper-content__cards-progress"
-              :count="notCompletedTasks.length"
-              :total="tasks.length"
-              color="#2578F4"
-              status="In progress"
-            />
+          <VProgressCardList v-if="tasks.length > 0" :completed-tasks-length="completedTasks.length"
+            :not-completed-tasks-length="notCompletedTasks.length" :tasks-length="tasks.length" />
 
-            <VProgressCard
-              :count-label="pluralizeText(completedTasks.length, 'task')"
-              class="wrapper-content__cards-progress"
-              :count="completedTasks.length"
-              :total="tasks.length"
-              color="rgba(239, 93, 168, 1)"
-              status="Completed"
-            />
-          </div>
-
-          <div class="wrapper-content__footer" v-if="tasks.length < 1">
+          <div class="wrapper-content__footer" v-if="!tasks.length">
             <VCheckmarkIcon /> <span>Congrat, you have no more tasks to do</span>
           </div>
 
-          <VTaskListActions @set-filtered="isFiltered = $event" v-else />
+          <VTaskListActions @filter-tasks="filterTasksHandler($event)" @delete-completed-tasks="deleteCompletedTasks"
+            @complete-all-tasks="completeAllTasks" :tasks="tasks" :completed-tasks-length="completedTasks.length"
+            :not-completed-tasks-length="notCompletedTasks.length" v-else />
         </div>
       </div>
     </div>
@@ -45,17 +30,16 @@
 import { computed, onMounted, ref } from 'vue'
 import VCheckmarkIcon from './components/icons/VCheckmarkIcon.vue'
 import VTodoIcon from './components/icons/VTodoIcon.vue'
-import VProgressCard from './components/VProgressCard/VProgressCard.vue'
 import { useTaskStore } from './stores/task'
 import VCreateTaskForm from './components/VCreateTaskForm/VCreateTaskForm.vue'
 import type { Task, TaskType } from './types/task'
 import VTaskListActions from './components/VTaskListActions/VTaskListActions.vue'
 import VTaskList from './components/VTaskList/VTaskList.vue'
-import { pluralizeText } from './utils/textUtils'
 import { useTheme } from './composables/useTheme'
 
 import VThemeSwitcher from './components/ui/VThemeSwitcher.vue'
 import { useKeyboardEvent } from './composables/useKeyboardEvent'
+import VProgressCardList from './components/VProgressCardList/VProgressCardList.vue'
 
 const taskStore = useTaskStore()
 
@@ -63,7 +47,13 @@ const { checkTheme } = useTheme()
 
 const inputValue = ref('')
 
-const isFiltered = ref(false)
+const isFiltered = computed(() => {
+  return taskStore.isFilteredMode
+})
+
+const filterTasksHandler = (type: TaskType) => {
+  tasksType.value = type
+}
 
 const isEditMode = ref(false)
 
@@ -80,6 +70,7 @@ function escapeHandler(event: KeyboardEvent) {
 
 useKeyboardEvent('keydown', escapeHandler)
 
+// Handles creating a new task or updating an existing one.
 const createTaskHandler = async (value: string) => {
   if (isEditMode.value && editTask.value) {
     await taskStore.updateTask(editTask.value.id, {
@@ -112,11 +103,16 @@ const notCompletedTasks = computed<Task[]>(() => {
   return tasks.value.filter((task) => !task.isCompleted)
 })
 
+// Sets the edit mode to true and populates the input field with the task title
 const editTaskHandler = async (task: Task) => {
   isEditMode.value = true
   inputValue.value = task.title
   editTask.value = task
 }
+
+const deleteCompletedTasks = async () => await taskStore.deleteCompletedTasks()
+
+const completeAllTasks = async () => await taskStore.completeAllTasks()
 
 onMounted(async () => {
   checkTheme()
@@ -170,17 +166,6 @@ onMounted(async () => {
   margin-bottom: 52px;
 }
 
-.wrapper-content__cards {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 32px;
-}
-
-.wrapper-content__cards-progress {
-  max-width: 190px;
-}
-
 .wrapper-content__footer {
   margin-top: auto;
   display: flex;
@@ -203,15 +188,6 @@ onMounted(async () => {
   .wrapper-theme__button {
     top: 16px;
     left: 16px;
-  }
-
-  .wrapper-content__cards {
-    flex-direction: column;
-    gap: 12px;
-  }
-
-  .wrapper-content__cards-progress {
-    max-width: 100%;
   }
 }
 </style>
