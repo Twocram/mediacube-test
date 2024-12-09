@@ -18,6 +18,7 @@
   --primary-color: #2578f4;
   --primary-color-hover: #1e66f5;
   --white-color: #ffffff;
+  --error-color: #ff0000;
 }
 
 .dark {
@@ -40,6 +41,7 @@
   --primary-color: #3498db;
   --primary-color-hover: #2e6da4;
   --white-color: #333333;
+  --error-color: #ff0000;
 }
 
 html,
