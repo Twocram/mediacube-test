@@ -6,7 +6,11 @@ import VButton from '../ui/VButton.vue'
 
 describe('TodoForm.vue', () => {
   it('renders the input field and does not show the button initially', () => {
-    const wrapper = mount(VCreateTaskForm)
+    const wrapper = mount(VCreateTaskForm, {
+      props: {
+        isEditMode: false,
+      },
+    })
 
     const input = wrapper.findComponent(VInput)
     expect(input.exists()).toBe(true)
@@ -16,7 +20,11 @@ describe('TodoForm.vue', () => {
   })
 
   it('shows the submit button when input has a value', async () => {
-    const wrapper = mount(VCreateTaskForm)
+    const wrapper = mount(VCreateTaskForm, {
+      props: {
+        isEditMode: false,
+      },
+    })
     const input = wrapper.findComponent(VInput)
 
     input.vm.$emit('update:modelValue', 'New Todo')
@@ -28,7 +36,11 @@ describe('TodoForm.vue', () => {
   })
 
   it('emits the submit event with the correct value and clears the input', async () => {
-    const wrapper = mount(VCreateTaskForm)
+    const wrapper = mount(VCreateTaskForm, {
+      props: {
+        isEditMode: false,
+      },
+    })
     const input = wrapper.findComponent(VInput)
 
     input.vm.$emit('update:modelValue', 'New Todo')
@@ -47,11 +59,37 @@ describe('TodoForm.vue', () => {
   })
 
   it('does not emit the submit event when input is empty', async () => {
-    const wrapper = mount(VCreateTaskForm)
+    const wrapper = mount(VCreateTaskForm, {
+      props: {
+        isEditMode: false,
+      },
+    })
 
     const form = wrapper.find('form')
     await form.trigger('submit.prevent')
 
     expect(wrapper.emitted('submit')).toBeUndefined()
+  })
+
+  it('shows edit button when isEditMode is true', async () => {
+    const wrapper = mount(VCreateTaskForm, {
+      props: {
+        isEditMode: true,
+      },
+    })
+
+    const input = wrapper.findComponent(VInput)
+
+    expect(input.exists()).toBe(true)
+
+    input.setValue('New Todo')
+
+    await flushPromises()
+
+    const button = wrapper.findComponent(VButton)
+
+    expect(button.exists()).toBe(true)
+
+    expect(button.text()).toBe('Edit')
   })
 })

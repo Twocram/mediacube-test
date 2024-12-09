@@ -6,7 +6,7 @@
         <div class="wrapper-content">
           <VTodoIcon class="wrapper-content__icon" />
           <div class="wrapper-content__caption">Today I need to</div>
-          <VCreateTaskForm v-model="inputValue" @submit="createTaskHandler($event)" />
+          <VCreateTaskForm :is-edit-mode="isEditMode" v-model="inputValue" @submit="createTaskHandler($event)" />
 
           <VTaskList :is-filtered="isFiltered" :tasks="tasks" @edit="editTaskHandler($event)" />
 

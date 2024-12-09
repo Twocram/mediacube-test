@@ -1,32 +1,21 @@
 <template>
   <div class="wrapper-content__footer-actions">
-    <VButton
-      @click="completeAllTasks"
-      :class="{ 'button-hidden': completedTasksLength === tasksLength }"
-      color="colorless"
-    >
+    <VButton @click="completeAllTasks" class="button-hidden"
+      :class="{ 'button-visible': notCompletedTasksLength === tasksLength || (notCompletedTasksLength > 0 && completedTasksLength > 0) }"
+      color="colorless">
       Check all
     </VButton>
     <VButton :color="allButtonColor" @click="filterTasks('all')"> All </VButton>
-    <VButton
-      :color="activeButtonColor"
-      @click="filterTasks('active')"
-      :class="{ 'button-hidden': notCompletedTasksLength === 0 }"
-    >
+    <VButton :color="activeButtonColor" @click="filterTasks('active')" class="button-hidden"
+      :class="{ 'button-visible': notCompletedTasksLength > 0 && completedTasksLength > 0 }">
       Active
     </VButton>
-    <VButton
-      :color="completedButtonColor"
-      @click="filterTasks('completed')"
-      :class="{ 'button-hidden': completedTasksLength === 0 }"
-    >
+    <VButton class="button-hidden" :color="completedButtonColor" @click="filterTasks('completed')"
+      :class="{ 'button-visible': notCompletedTasksLength > 0 && completedTasksLength > 0 }">
       Completed
     </VButton>
-    <VButton
-      @click="deleteCompletedTasks"
-      color="colorless"
-      :class="{ 'button-hidden': completedTasksLength < 1 }"
-    >
+    <VButton class="button-hidden" @click="deleteCompletedTasks" color="colorless"
+      :class="{ 'button-visible': completedTasksLength === tasksLength || (notCompletedTasksLength > 0 && completedTasksLength > 0) }">
       Clear completed
     </VButton>
   </div>
@@ -77,6 +66,12 @@ const filterTasks = (type: ButtonActiveType) => {
   pointer-events: none;
   cursor: default;
   opacity: 0;
+}
+
+.button-visible {
+  pointer-events: all;
+  cursor: pointer;
+  opacity: 1;
 }
 
 @media screen and (max-width: 768px) {

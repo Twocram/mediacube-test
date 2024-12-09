@@ -1,7 +1,7 @@
 <template>
   <form @submit.prevent="submitHandler" class="wrapper-content__form">
     <VInput class="wrapper-content__form-input" placeholder="Add new todo..." type="text" v-model="inputValue" />
-    <VButton v-if="inputValue" size="medium" type="submit"> Submit </VButton>
+    <VButton v-if="inputValue" size="medium" type="submit"> {{ isEditMode ? 'Edit' : 'Add' }} </VButton>
   </form>
 </template>
 
@@ -9,15 +9,22 @@
 import VInput from '@/components/ui/VInput.vue'
 import VButton from '@/components/ui/VButton.vue'
 
+type Props = {
+  isEditMode: boolean
+}
+
+defineProps<Props>()
 const inputValue = defineModel<string>()
 
 const emits = defineEmits(['submit'])
+
 
 const submitHandler = () => {
   if (!inputValue.value) return
   emits('submit', inputValue.value)
   inputValue.value = ''
 }
+
 </script>
 
 <style scoped>
