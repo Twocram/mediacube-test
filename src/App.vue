@@ -6,7 +6,8 @@
         <div class="wrapper-content">
           <VTodoIcon class="wrapper-content__icon" />
           <div class="wrapper-content__caption">Today I need to</div>
-          <VCreateTaskForm :is-edit-mode="isEditMode" v-model="inputValue" @submit="createTaskHandler($event)" />
+          <VCreateTaskForm :is-response-sending="isResponseSending" :is-edit-mode="isEditMode" v-model="inputValue"
+            @submit="createTaskHandler($event)" />
 
           <VTaskList :is-filtered="isFiltered" :tasks="tasks" @edit="editTaskHandler($event)" />
 
@@ -58,6 +59,8 @@ const filterTasksHandler = (type: TaskType) => {
 
 const isEditMode = ref(false)
 
+const isResponseSending = ref(false)
+
 const editTask = ref<Task | null>(null)
 
 const tasksType = ref<TaskType>('all')
@@ -73,6 +76,7 @@ useKeyboardEvent('keydown', escapeHandler)
 
 // Handles creating a new task or updating an existing one.
 const createTaskHandler = async (value: string) => {
+  isResponseSending.value = true
   if (isEditMode.value && editTask.value) {
     await taskStore.updateTask(editTask.value.id, {
       title: value,
@@ -83,6 +87,7 @@ const createTaskHandler = async (value: string) => {
     return
   }
   await taskStore.createTask(value)
+  isResponseSending.value = false
 }
 
 const tasks = computed<Task[]>(() => {

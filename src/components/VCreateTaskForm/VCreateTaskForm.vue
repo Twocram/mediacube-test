@@ -1,7 +1,9 @@
 <template>
   <form @submit.prevent="submitHandler" class="create-task__form">
     <VInput class="create-task__form-input" placeholder="Add new todo..." type="text" v-model="inputValue" />
-    <VButton v-if="inputValue" size="medium" type="submit"> {{ isEditMode ? 'Edit' : 'Add' }} </VButton>
+    <VButton v-if="inputValue" :is-loading="isResponseSending" size="medium" type="submit"> {{ isEditMode ? 'Edit' :
+      'Add' }}
+    </VButton>
   </form>
 </template>
 
@@ -11,6 +13,7 @@ import VButton from '@/components/ui/VButton.vue'
 
 type Props = {
   isEditMode: boolean
+  isResponseSending: boolean
 }
 
 defineProps<Props>()

@@ -1,5 +1,6 @@
 <template>
-  <button class="button" :type="type" :class="[`button-${size}`, `button-${color}`]">
+  <button class="button" :type="type" :class="[`button-${size}`, `button-${color}`, { 'button-loading': isLoading }]">
+    <div class="loader" v-if="isLoading"></div>
     <slot></slot>
   </button>
 </template>
@@ -11,6 +12,7 @@ type Props = {
   size?: ButtonSize
   type?: ButtonType
   color?: ButtonColor
+  isLoading?: boolean
 }
 
 withDefaults(defineProps<Props>(), {
@@ -39,6 +41,11 @@ withDefaults(defineProps<Props>(), {
   background-color: var(--primary-color);
 }
 
+.button-loading {
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
 .button-colorless {
   color: var(--main-color);
   background-color: transparent;
@@ -61,5 +68,25 @@ withDefaults(defineProps<Props>(), {
 .button-rounded {
   border-radius: 50px;
   padding: 8px;
+}
+
+.loader {
+  border: 2px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 2px solid var(--primary-color);
+  width: 16px;
+  height: 16px;
+  animation: spin 2s linear infinite;
+  margin-right: 8px;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
 }
 </style>
