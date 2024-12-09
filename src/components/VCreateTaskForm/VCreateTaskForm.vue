@@ -1,6 +1,6 @@
 <template>
-  <form @submit.prevent="submitHandler" class="wrapper-content__form">
-    <VInput class="wrapper-content__form-input" placeholder="Add new todo..." type="text" v-model="inputValue" />
+  <form @submit.prevent="submitHandler" class="create-task__form">
+    <VInput class="create-task__form-input" placeholder="Add new todo..." type="text" v-model="inputValue" />
     <VButton v-if="inputValue" size="medium" type="submit"> {{ isEditMode ? 'Edit' : 'Add' }} </VButton>
   </form>
 </template>
@@ -28,7 +28,7 @@ const submitHandler = () => {
 </script>
 
 <style scoped>
-.wrapper-content__form {
+.create-task__form {
   display: flex;
   justify-content: center;
   gap: 16px;
@@ -36,7 +36,7 @@ const submitHandler = () => {
   width: 100%;
 }
 
-.wrapper-content__form-input {
+.create-task__form-input {
   max-width: 317px;
 }
 </style>

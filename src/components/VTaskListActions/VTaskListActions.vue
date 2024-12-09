@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapper-content__footer-actions">
+  <div class="list-actions__footer-actions">
     <VButton @click="completeAllTasks" class="button-hidden"
       :class="{ 'button-visible': notCompletedTasksLength === tasksLength || (notCompletedTasksLength > 0 && completedTasksLength > 0) }"
       color="colorless">
@@ -55,7 +55,7 @@ const filterTasks = (type: TaskType) => {
 </script>
 
 <style scoped>
-.wrapper-content__footer-actions {
+.list-actions__footer-actions {
   display: flex;
 }
 
@@ -72,7 +72,7 @@ const filterTasks = (type: TaskType) => {
 }
 
 @media screen and (max-width: 768px) {
-  .wrapper-content__footer-actions {
+  .list-actions__footer-actions {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
   }
