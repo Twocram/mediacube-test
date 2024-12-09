@@ -90,6 +90,7 @@ const filterTasks = (type: TaskType) => {
   .list-actions__footer-actions {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
   }
 }
 </style>

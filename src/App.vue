@@ -198,4 +198,11 @@ onMounted(async () => {
     left: 16px;
   }
 }
+
+@media screen and (max-width: 480px) {
+  .wrapper {
+    padding: 8px;
+    max-width: 375px;
+  }
+}
 </style>
