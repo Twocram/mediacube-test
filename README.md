@@ -84,4 +84,4 @@ npm run format
 
 ### Видео с примером работы
 
-[![Watch the video](./readme-assets/preview.png)](https://www.loom.com/share/e150c8be61534ccab3fd0b9b286247a2)
+[![Watch the video](./readme-assets/preview.png)](https://www.loom.com/share/942603ad2fc744babae5775c3ebf0485)
