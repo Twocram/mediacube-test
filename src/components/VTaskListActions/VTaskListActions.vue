@@ -1,21 +1,20 @@
 <template>
   <div class="list-actions__footer-actions">
-    <VButton @click="completeAllTasks" class="button-hidden"
-      :class="{ 'button-visible': notCompletedTasksLength === tasksLength || (notCompletedTasksLength > 0 && completedTasksLength > 0) }"
+    <VButton @click="completeAllTasks" class="button-hidden" :class="{ 'button-visible': checkAllButtonVisible }"
       color="colorless">
       Check all
     </VButton>
     <VButton :color="allButtonColor" @click="filterTasks('all')"> All </VButton>
     <VButton :color="activeButtonColor" @click="filterTasks('active')" class="button-hidden"
-      :class="{ 'button-visible': (notCompletedTasksLength > 0 && completedTasksLength > 0) || (notCompletedTasksLength === tasksLength) }">
+      :class="{ 'button-visible': activeButtonVisible }">
       Active
     </VButton>
     <VButton class="button-hidden" :color="completedButtonColor" @click="filterTasks('completed')"
-      :class="{ 'button-visible': (notCompletedTasksLength > 0 && completedTasksLength > 0) || (completedTasksLength === tasksLength) }">
+      :class="{ 'button-visible': completedButtonVisible }">
       Completed
     </VButton>
     <VButton class="button-hidden" @click="deleteCompletedTasks" color="colorless"
-      :class="{ 'button-visible': completedTasksLength === tasksLength || (notCompletedTasksLength > 0 && completedTasksLength > 0) }">
+      :class="{ 'button-visible': clearCompletedButtonVisible }">
       Clear completed
     </VButton>
   </div>
@@ -42,6 +41,22 @@ const activeButtonColor = computed(() => (props.activeType === 'active' ? 'prima
 const completedButtonColor = computed(() =>
   props.activeType === 'completed' ? 'primary' : 'colorless',
 )
+
+const checkAllButtonVisible = computed(() => {
+  return (props.notCompletedTasksLength === tasksLength.value) || (props.notCompletedTasksLength > 0 && props.completedTasksLength > 0)
+})
+
+const activeButtonVisible = computed(() => {
+  return (props.notCompletedTasksLength > 0 && props.completedTasksLength > 0) || (props.notCompletedTasksLength === tasksLength.value)
+})
+
+const completedButtonVisible = computed(() => {
+  return (props.notCompletedTasksLength > 0 && props.completedTasksLength > 0) || (props.completedTasksLength === tasksLength.value)
+})
+
+const clearCompletedButtonVisible = computed(() => {
+  return (props.completedTasksLength === tasksLength.value) || (props.notCompletedTasksLength > 0 && props.completedTasksLength > 0)
+})
 
 const tasksLength = computed(() => props.tasks.length)
 
