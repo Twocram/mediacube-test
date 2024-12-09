@@ -3,7 +3,7 @@ import type { Task } from '@/types/task'
 class TaskService {
   async getTasks(): Promise<Task[]> {
     try {
-      const response = await fetch('/api/tasks', {
+      const response = await fetch('/tasks', {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -28,7 +28,7 @@ class TaskService {
     }
 
     try {
-      const response = await fetch('/api/tasks', {
+      const response = await fetch('/tasks', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -48,7 +48,7 @@ class TaskService {
 
   async deleteTask(taskId: string): Promise<Task> {
     try {
-      const response = await fetch(`/api/tasks/${taskId}`, {
+      const response = await fetch(`/tasks/${taskId}`, {
         method: 'DELETE',
         headers: {
           Accept: 'application/json',
@@ -67,7 +67,7 @@ class TaskService {
 
   async updateTask(taskId: string, options: Omit<Task, 'id'>): Promise<Task> {
     try {
-      const response = await fetch(`/api/tasks/${taskId}`, {
+      const response = await fetch(`/tasks/${taskId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

@@ -15,10 +15,9 @@ export default defineConfig({
   },
   server: {
     proxy: {
-      '/api': {
+      '/tasks': {
         target: env['VITE_SERVER_URL'],
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, ''),
       },
     },
   },
