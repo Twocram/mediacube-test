@@ -2,15 +2,8 @@
   <div class="task-list">
     <VueDraggableNext handle=".task-list__item-handle" v-model="localTasks">
       <TransitionGroup>
-        <VTaskListItem
-          @edit="emits('edit', $event)"
-          v-for="task in localTasks"
-          :key="task.id"
-          :isCompleted="task.isCompleted"
-          :id="task.id"
-          :title="task.title"
-          :isFiltered="isFilteredMode"
-        />
+        <VTaskListItem @edit="emits('edit', $event)" v-for="task in localTasks" :key="task.id"
+          :isCompleted="task.isCompleted" :id="task.id" :title="task.title" :isFiltered="isFilteredMode" />
       </TransitionGroup>
     </VueDraggableNext>
   </div>
@@ -56,7 +49,8 @@ watch(
   padding-right: 16px;
   max-height: 92px;
   height: 100%;
-  overflow: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .task-list::-webkit-scrollbar {
