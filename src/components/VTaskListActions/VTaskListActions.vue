@@ -7,7 +7,6 @@
   </div>
 </template>
 
-
 <script setup lang="ts">
 import { computed } from 'vue'
 import VButton from '@/components/ui/VButton.vue'

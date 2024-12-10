@@ -1,26 +1,14 @@
 <template>
   <div class="card-list__cards">
-    <VProgressCard
-      :count-label="pluralizeText(notCompletedTasksLength, 'task')"
-      class="card-list__cards-progress"
-      :count="notCompletedTasksLength"
-      :total="tasksLength"
-      color="#2578F4"
-      status="In progress"
-    />
-
-    <VProgressCard
-      :count-label="pluralizeText(completedTasksLength, 'task')"
-      class="card-list__cards-progress"
-      :count="completedTasksLength"
-      :total="tasksLength"
-      color="rgba(239, 93, 168, 1)"
-      status="Completed"
-    />
+    <VProgressCard v-for="(card, index) in progressCards" :key="index" :count-label="card.countLabel"
+      class="card-list__cards-progress" :count="card.count" :total="card.total" :color="card.color"
+      :status="card.status" />
   </div>
 </template>
 
+
 <script setup lang="ts">
+import { computed } from 'vue'
 import { pluralizeText } from '@/utils/textUtils'
 import VProgressCard from '@/components/VProgressCard/VProgressCard.vue'
 
@@ -30,8 +18,26 @@ type Props = {
   tasksLength: number
 }
 
-defineProps<Props>()
+const props = defineProps<Props>()
+
+const progressCards = computed(() => [
+  {
+    countLabel: pluralizeText(props.notCompletedTasksLength, 'task'),
+    count: props.notCompletedTasksLength,
+    total: props.tasksLength,
+    color: '#2578F4',
+    status: 'In progress',
+  },
+  {
+    countLabel: pluralizeText(props.completedTasksLength, 'task'),
+    count: props.completedTasksLength,
+    total: props.tasksLength,
+    color: 'rgba(239, 93, 168, 1)',
+    status: 'Completed',
+  },
+])
 </script>
+
 
 <style scoped>
 .card-list__cards {
