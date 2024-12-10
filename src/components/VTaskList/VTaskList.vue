@@ -2,8 +2,15 @@
   <div class="task-list">
     <VueDraggableNext handle=".task-list__item-handle" v-model="localTasks">
       <TransitionGroup>
-        <VTaskListItem @edit="emits('edit', $event)" v-for="task in localTasks" :key="task.id"
-          :isCompleted="task.isCompleted" :id="task.id" :title="task.title" :isFiltered="isFilteredMode" />
+        <VTaskListItem
+          @edit="emits('edit', $event)"
+          v-for="task in localTasks"
+          :key="task.id"
+          :isCompleted="task.isCompleted"
+          :id="task.id"
+          :title="task.title"
+          :isFiltered="isFilteredMode"
+        />
       </TransitionGroup>
     </VueDraggableNext>
   </div>
@@ -21,7 +28,7 @@ type Props = {
 
 const props = defineProps<Props>()
 
-const emits = defineEmits(['edit',])
+const emits = defineEmits(['edit'])
 
 const localTasks = ref<Task[]>([])
 

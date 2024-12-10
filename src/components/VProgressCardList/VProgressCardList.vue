@@ -1,10 +1,22 @@
 <template>
   <div class="card-list__cards">
-    <VProgressCard :count-label="pluralizeText(notCompletedTasksLength, 'task')" class="card-list__cards-progress"
-      :count="notCompletedTasksLength" :total="tasksLength" color="#2578F4" status="In progress" />
+    <VProgressCard
+      :count-label="pluralizeText(notCompletedTasksLength, 'task')"
+      class="card-list__cards-progress"
+      :count="notCompletedTasksLength"
+      :total="tasksLength"
+      color="#2578F4"
+      status="In progress"
+    />
 
-    <VProgressCard :count-label="pluralizeText(completedTasksLength, 'task')" class="card-list__cards-progress"
-      :count="completedTasksLength" :total="tasksLength" color="rgba(239, 93, 168, 1)" status="Completed" />
+    <VProgressCard
+      :count-label="pluralizeText(completedTasksLength, 'task')"
+      class="card-list__cards-progress"
+      :count="completedTasksLength"
+      :total="tasksLength"
+      color="rgba(239, 93, 168, 1)"
+      status="Completed"
+    />
   </div>
 </template>
 

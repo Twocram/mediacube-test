@@ -3,10 +3,21 @@
     <div class="task-list__item-handle" :class="{ hidden: isFiltered }">
       <VDragIcon />
     </div>
-    <VCheckbox :value="isCompleted" class="task-list__item-checkbox" @change="changeHandler($event)" />
-    <span class="task-list__item-label" :class="{ 'task-list__item-label--completed': isCompleted }">{{ title }}</span>
+    <VCheckbox
+      :value="isCompleted"
+      class="task-list__item-checkbox"
+      @change="changeHandler($event)"
+    />
+    <span
+      class="task-list__item-label"
+      :class="{ 'task-list__item-label--completed': isCompleted }"
+      >{{ title }}</span
+    >
     <div class="task-list__item-actions">
-      <VPencilIcon class="task-list__item-pencil" @click="emits('edit', { id, title, isCompleted })" />
+      <VPencilIcon
+        class="task-list__item-pencil"
+        @click="emits('edit', { id, title, isCompleted })"
+      />
       <VBinIcon class="task-list__item-bin" @click="deleteTaskHandler(id)" />
     </div>
   </div>
