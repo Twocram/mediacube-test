@@ -44,7 +44,11 @@ describe('VTaskListActions.vue', () => {
   })
 
   it('hides the Check all button when all tasks are completed', () => {
-    const wrapper = createWrapper({ tasks: mockTasks, completedTasksLength: 3 })
+    const wrapper = createWrapper({
+      tasks: mockTasks,
+      notCompletedTasksLength: 0,
+      completedTasksLength: 3,
+    })
 
     const checkAllButton = wrapper.findAllComponents(VButton)[0]
 

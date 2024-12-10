@@ -1,30 +1,18 @@
 <template>
   <div class="list-actions__footer-actions">
-    <VButton @click="completeAllTasks" class="button-hidden" :class="{ 'button-visible': checkAllButtonVisible }"
-      color="colorless">
-      Check all
-    </VButton>
-    <VButton :color="allButtonColor" @click="filterTasks('all')"> All </VButton>
-    <VButton :color="activeButtonColor" @click="filterTasks('active')" class="button-hidden"
-      :class="{ 'button-visible': activeButtonVisible }">
-      Active
-    </VButton>
-    <VButton class="button-hidden" :color="completedButtonColor" @click="filterTasks('completed')"
-      :class="{ 'button-visible': completedButtonVisible }">
-      Completed
-    </VButton>
-    <VButton class="button-hidden" @click="deleteCompletedTasks" color="colorless"
-      :class="{ 'button-visible': clearCompletedButtonVisible }">
-      Clear completed
+    <VButton v-for="(button, index) in buttons" :key="index" :color="(button.color as ButtonColor)"
+      :class="button.visible ? 'button-visible' : 'button-hidden'" @click="button.action">
+      {{ button.label }}
     </VButton>
   </div>
 </template>
+
 
 <script setup lang="ts">
 import { computed } from 'vue'
 import VButton from '@/components/ui/VButton.vue'
 import type { Task, TaskType } from '@/types/task'
-
+import type { ButtonColor } from '@/types/button';
 
 const props = defineProps<{
   tasks: Task[]
@@ -35,38 +23,40 @@ const props = defineProps<{
 
 const emit = defineEmits(['delete-completed-tasks', 'complete-all-tasks', 'filter-tasks'])
 
-
-const allButtonColor = computed(() => (props.activeType === 'all' ? 'primary' : 'colorless'))
-const activeButtonColor = computed(() => (props.activeType === 'active' ? 'primary' : 'colorless'))
-const completedButtonColor = computed(() =>
-  props.activeType === 'completed' ? 'primary' : 'colorless',
-)
-
-const checkAllButtonVisible = computed(() => {
-  return (props.notCompletedTasksLength === tasksLength.value) || (props.notCompletedTasksLength > 0 && props.completedTasksLength > 0)
-})
-
-const activeButtonVisible = computed(() => {
-  return (props.notCompletedTasksLength > 0 && props.completedTasksLength > 0) || (props.notCompletedTasksLength === tasksLength.value)
-})
-
-const completedButtonVisible = computed(() => {
-  return (props.notCompletedTasksLength > 0 && props.completedTasksLength > 0) || (props.completedTasksLength === tasksLength.value)
-})
-
-const clearCompletedButtonVisible = computed(() => {
-  return (props.completedTasksLength === tasksLength.value) || (props.notCompletedTasksLength > 0 && props.completedTasksLength > 0)
-})
-
 const tasksLength = computed(() => props.tasks.length)
 
-const deleteCompletedTasks = () => emit('delete-completed-tasks')
-const completeAllTasks = () => {
-  emit('complete-all-tasks')
-}
-const filterTasks = (type: TaskType) => {
-  emit('filter-tasks', type)
-}
+const buttons = computed(() => [
+  {
+    label: 'Check all',
+    color: 'colorless',
+    visible: (props.notCompletedTasksLength === tasksLength.value) || (props.notCompletedTasksLength > 0 && props.completedTasksLength > 0),
+    action: () => emit('complete-all-tasks'),
+  },
+  {
+    label: 'All',
+    color: props.activeType === 'all' ? 'primary' : 'colorless',
+    visible: true,
+    action: () => emit('filter-tasks', 'all'),
+  },
+  {
+    label: 'Active',
+    color: props.activeType === 'active' ? 'primary' : 'colorless',
+    visible: (props.notCompletedTasksLength > 0 && props.completedTasksLength > 0) || (props.notCompletedTasksLength === tasksLength.value),
+    action: () => emit('filter-tasks', 'active'),
+  },
+  {
+    label: 'Completed',
+    color: props.activeType === 'completed' ? 'primary' : 'colorless',
+    visible: (props.notCompletedTasksLength > 0 && props.completedTasksLength > 0) || (props.completedTasksLength === tasksLength.value),
+    action: () => emit('filter-tasks', 'completed'),
+  },
+  {
+    label: 'Clear completed',
+    color: 'colorless',
+    visible: (props.completedTasksLength === tasksLength.value) || (props.notCompletedTasksLength > 0 && props.completedTasksLength > 0),
+    action: () => emit('delete-completed-tasks'),
+  },
+])
 </script>
 
 <style scoped>
