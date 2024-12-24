@@ -1,4 +1,4 @@
-import { taskService } from '@/services/taskService'
+import { taskService } from '@/api/taskService'
 import type { Task } from '@/types/task'
 import { defineStore } from 'pinia'
 

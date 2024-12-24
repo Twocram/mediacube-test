@@ -43,19 +43,19 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, ref } from 'vue'
 import VCheckmarkIcon from '@/components/icons/VCheckmarkIcon.vue'
 import VTodoIcon from '@/components/icons/VTodoIcon.vue'
-import { useTaskStore } from '@/stores/task'
 import VCreateTaskForm from '@/components/VCreateTaskForm/VCreateTaskForm.vue'
-import type { Task, TaskType } from '@/types/task'
-import VTaskListActions from '@/components/VTaskListActions/VTaskListActions.vue'
 import VTaskList from '@/components/VTaskList/VTaskList.vue'
+import VTaskListActions from '@/components/VTaskListActions/VTaskListActions.vue'
 import { useTheme } from '@/composables/useTheme'
+import { useTaskStore } from '@/stores/task'
+import type { Task, TaskType } from '@/types/task'
+import { computed, onMounted, ref } from 'vue'
 
 import VThemeSwitcher from '@/components/ui/VThemeSwitcher.vue'
-import { useKeyboardEvent } from '@/composables/useKeyboardEvent'
 import VProgressCardList from '@/components/VProgressCardList/VProgressCardList.vue'
+import { useKeyboardEvent } from '@/composables/useKeyboardEvent'
 
 const taskStore = useTaskStore()
 
